@@ -15,3 +15,4 @@ Steps to be followed to develope this projects
 13) Add logout functionality in admin dashboard
 14) Customize login form
 15) Refresh Admin Template
+16) asset path updated
