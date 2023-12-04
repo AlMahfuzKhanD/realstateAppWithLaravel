@@ -9,3 +9,6 @@ Steps to be followed to develope this projects
 7) Modify AuthinticatedSessionController to redirect Admin,agent and user dashboard.
 8) Create Role Middleware ,register it in carnel and set middleware so that user can not login to agent and admin.
 9) Set login with Username and phone number also alongside email
+10) Download Admin Dashboard
+11) import dashboard resource to apps
+12) Segment the dashboard html content
