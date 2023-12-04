@@ -11,4 +11,5 @@ Steps to be followed to develope this projects
 9) Set login with Username and phone number also alongside email
 10) Download Admin Dashboard
 11) import dashboard resource to apps
-12) Segment the dashboard html content
+12) Segment the dashboard UI
+13) Add logout functionality in admin dashboard
