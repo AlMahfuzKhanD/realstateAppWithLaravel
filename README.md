@@ -13,3 +13,4 @@ Steps to be followed to develope this projects
 11) import dashboard resource to apps
 12) Segment the dashboard UI
 13) Add logout functionality in admin dashboard
+14) Customize login form
