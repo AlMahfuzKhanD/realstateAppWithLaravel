@@ -16,3 +16,4 @@ Steps to be followed to develope this projects
 14) Customize login form
 15) Refresh Admin Template
 16) asset path updated
+17) Profile section updated
