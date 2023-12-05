@@ -14,13 +14,14 @@ class AdminController extends Controller
 
     public function AdminLogin(){
         return view('admin.admin_login');
-    }
+    } // end AdminLogin
 
     public function AdminProfile(){
         $id = Auth::user()->id;
         $profileData = User::find($id);
         return view('admin.admin_profile_view',compact('profileData'));
-    }
+    } // end AdminProfile
+
     public function AdminProfileUpdate(Request $request){
         $id = Auth::user()->id;
         $profileData = User::find($id);
@@ -31,14 +32,25 @@ class AdminController extends Controller
         $profileData['address'] = $request->address;
         if($request->file('photo')){
             $file = $request->file('photo');
+            @unlink(public_path('upload/admin_images/'.$profileData['photo']));
             $fileName = date('Ymdhi').$file->getClientOriginalName();
             $file->move(public_path('upload/admin_images'),$fileName);
             $profileData['photo'] = $fileName;
         }
         $profileData->save();
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
 
-    }
+    } // end AdminProfileUpdate
+
+    public function ChangeAdminPassword(){
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('admin.change_admin_password',compact('profileData'));
+    } // end ChangeAdminPassword
 
     public function AdminLogout(Request $request)
     {
@@ -49,5 +61,5 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/admin/login');
-    } // end logout
+    } // end AdminLogout
 }
