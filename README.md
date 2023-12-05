@@ -17,3 +17,4 @@ Steps to be followed to develope this projects
 15) Refresh Admin Template
 16) asset path updated
 17) Profile section updated
+18) Work with change password feature
