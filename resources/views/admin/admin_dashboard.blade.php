@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <!-- End fonts -->
-
+  <script src="{{ asset('backend/assets/js/jquery-3.7.1.min.js') }}"></script>
 	<!-- core:css -->
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/core/core.css') }}">
 	<!-- endinject -->
@@ -58,6 +58,9 @@
 		</div>
 	</div>
 
+	<!-- Jquery -->
+	
+	<!-- endJquery -->
 	<!-- core:js -->
 	<script src="{{ asset('backend/assets/vendors/core/core.js') }}"></script>
 	<!-- endinject -->

@@ -48,29 +48,40 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Basic Form</h6>
+                        <h6 class="card-title">Update Admin Profile</h6>
 
                         <form class="forms-sample">
                             <div class="mb-3">
                                 <label for="exampleInputUsername1" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Username" />
+                                <input type="text" class="form-control" name="username" id="exampleInputUsername1" autocomplete="off" value="{{ $profileData->username??'' }}" />
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" />
+                                <label for="exampleInputName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="exampleInputName" name="name" value="{{ $profileData->name??'' }}" />
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="off" placeholder="Password" />
+                                <label for="exampleInputEmail1" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="{{ $profileData->email??'' }}" />
                             </div>
-                            <div class="form-check mb-3">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                <label class="form-check-label" for="exampleCheck1">
-                                    Remember me
-                                </label>
+                            <div class="mb-3">
+                                <label for="userPhone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="userPhone" name="phone" value="{{ $profileData->phone??'' }}" />
                             </div>
-                            <button type="submit" class="btn btn-primary me-2">Submit</button>
-                            <button class="btn btn-secondary">Cancel</button>
+                            <div class="mb-3">
+                                <label for="userAddress" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="userAddress" name="address" value="{{ $profileData->address??'' }}" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="userPhoto" class="form-label">Photo</label>
+                                <input class="form-control" type="file" id="userPhoto" name="photo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="showImage" class="form-label"></label>
+                                <img id="showImage" class="wd-80 rounded-circle" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="profile" />
+                            </div>
+
+                            
+                            <button type="submit" class="btn btn-primary me-2">Update</button>
                         </form>
                     </div>
                 </div>
@@ -82,4 +93,19 @@
         <!-- right wrapper end -->
     </div>
 </div>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    $('#userPhoto').change(function(e){
+        var reader = new FileReader();
+        reader.onload = function(e){
+            $('#showImage').attr('src',e.target.result);
+        }
+        reader.readAsDataURL(e.target.files['0']);
+    });
+
+});
+
+</script>
 @endsection
