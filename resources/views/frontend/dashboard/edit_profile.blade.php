@@ -1,5 +1,4 @@
-@extends('frontend.frontend_dashboard')
-@section('content')
+@extends('frontend.frontend_dashboard') @section('content')
 @php
     $id = Auth::user()->id;
     $userData = App\Models\User::find($id);
@@ -53,42 +52,36 @@
                     <div class="news-block-one">
                         <div class="inner-box">
                             <div class="lower-content">
-                                <h3>Including Animation In Your Design System.</h3>
-                                
-
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="card-body" style="background-color: #1baf65;">
-                                            <h1 class="card-title" style="color: white; font-weight: bold;">0</h1>
-                                            <h5 class="card-text" style="color: white;">Approved properties</h5>
-                                        </div>
+                                <form action="signin.html" method="post" class="default-form">
+                                    <div class="form-group">
+                                        <label>User Name</label>
+                                        <input type="text" name="username" required="" value="{{ $userData->username??'' }}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" name="name" required="" value="{{ $userData->name??'' }}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" name="email" required="" value="{{ $userData->email??'' }}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="text" name="phone" required="" value="{{ $userData->phone??'' }}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" name="address" required="" value="{{ $userData->address??'' }}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formFile" class="form-label">Default file input example</label>
+                                        <input class="form-control" type="file" id="formFile" />
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="card-body" style="background-color: #ffc107;">
-                                            <h1 class="card-title" style="color: white; font-weight: bold;">0</h1>
-                                            <h5 class="card-text" style="color: white;">Pending approve properties</h5>
-                                        </div>
+                                    <div class="form-group message-btn">
+                                        <button type="submit" class="theme-btn btn-one">Save Changes</button>
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <div class="card-body" style="background-color: #002758;">
-                                            <h1 class="card-title" style="color: white; font-weight: bold;">0</h1>
-                                            <h5 class="card-text" style="color: white;">Rejected properties</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="blog-details-content">
-                    <div class="news-block-one">
-                        <div class="inner-box">
-                            <div class="lower-content">
-                                <h3>Activity Logs</h3>
-                                <hr />
+                                </form>
                             </div>
                         </div>
                     </div>
