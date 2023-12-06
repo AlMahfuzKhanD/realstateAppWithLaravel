@@ -47,7 +47,7 @@
             @include('frontend.home.mobile_menu')
             <!-- End Mobile Menu -->
 
-            @yield('main')
+            @yield('content')
 
             <!-- main-footer -->
             @include('frontend.home.footer')

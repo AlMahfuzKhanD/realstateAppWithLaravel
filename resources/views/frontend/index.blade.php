@@ -1,5 +1,5 @@
 @extends('frontend.frontend_dashboard')
-@section('main')
+@section('content')
 <!-- banner-section -->
 @include('frontend.home.banner')
 <!-- banner-section end -->
