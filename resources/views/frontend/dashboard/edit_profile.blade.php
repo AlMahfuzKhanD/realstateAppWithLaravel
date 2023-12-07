@@ -52,7 +52,7 @@
                     <div class="news-block-one">
                         <div class="inner-box">
                             <div class="lower-content">
-                                <form action="signin.html" method="post" class="default-form">
+                                <form action="{{ route('user.profile.update') }}" method="post" class="default-form" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label>User Name</label>
                                         <input type="text" name="username" required="" value="{{ $userData->username??'' }}"/>
@@ -76,6 +76,10 @@
                                     <div class="form-group">
                                         <label for="formFile" class="form-label">Default file input example</label>
                                         <input class="form-control" type="file" id="formFile" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="showSelectedImage" class="form-label"></label>
+                                        <img id="showSelectedImage" src="{{ (!empty($userData->photo)) ? url('upload/user_images/'.$userData->photo) : url('upload/no_image.jpg') }}" alt="" style="width:100px; height:100px;"/></a>
                                     </div>
 
                                     <div class="form-group message-btn">
@@ -117,4 +121,20 @@
     </div>
 </section>
 <!-- subscribe-section end -->
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+    
+        $('#formFile').change(function(e){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#showSelectedImage').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(e.target.files['0']);
+        });
+    
+    });
+    
+    </script>
 @endsection
