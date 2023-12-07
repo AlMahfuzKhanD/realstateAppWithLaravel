@@ -27,9 +27,18 @@
                         <a href="index.html"><i class="fab fa-vimeo-v"></i></a>
                     </li>
                 </ul>
+                @auth
                 <div class="sign-box">
-                    <a href="signin.html"><i class="fas fa-user"></i>Sign In</a>
+                    <a href="{{ route('dashboard') }}"><i class="fas fa-house-user"></i>Dashboard</a>
+                    <a href="{{ route('user.logout') }}" style="margin-left:10px; "><i class="fas fa-user"></i>Logout</a>
                 </div>
+                
+                @else
+                <div class="sign-box">
+                    <a href="{{ route('login') }}"><i class="fas fa-user"></i>Sign In</a>
+                </div>
+                @endauth
+                
             </div>
         </div>
     </div>
