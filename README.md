@@ -18,3 +18,5 @@ Steps to be followed to develope this projects
 16) asset path updated
 17) Profile section updated
 18) Work with change password feature
+19) Work with User User login and register
+20) Work with User Dashboard and Profile
