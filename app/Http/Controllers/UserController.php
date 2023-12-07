@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -51,5 +52,41 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
-    } // end AdminLogout
+    } // end UserLogout
+
+    public function ChangeUserPassword(){
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('frontend.dashboard.change_password',compact('profileData'));
+    } // end ChangeUserPassword
+
+    public function UpdateUserPassword(Request $request){
+
+        // Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+        // Match Old Password
+        if(!Hash::check($request->old_password, Auth::user()->password)){
+
+            $notification = array(
+                'message' => 'Old Password Does not Match!!',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+
+        // Update Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        $notification = array(
+            'message' => 'Password changed successfully!!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+
+    } // end UpdateUserPassword
 }

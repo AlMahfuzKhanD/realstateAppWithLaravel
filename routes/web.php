@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
    Route::get('/user/profile',[UserController::class,'UserProfile'])->name('user.profile');
    Route::post('/user/profile/update',[UserController::class,'UserProfileUpdate'])->name('user.profile.update');
    Route::get('/user/logout',[UserController::class,'UserLogout'])->name('user.logout');
+   Route::get('/user/change_password',[UserController::class,'ChangeUserPassword'])->name('change.user.password');
+   Route::post('/user/update_password',[UserController::class,'UpdateUserPassword'])->name('update.user.password');
 });
 
 require __DIR__.'/auth.php';
