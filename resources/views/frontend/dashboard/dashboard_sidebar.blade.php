@@ -20,7 +20,7 @@
             <a href="blog-details.html"><i class="fa fa-key" aria-hidden="true"></i> Security </a>
         </li>
         <li>
-            <a href="blog-details.html"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i> Logout </a>
+            <a href="{{ route('user.logout') }}"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i> Logout </a>
         </li>
     </ul>
 </div>

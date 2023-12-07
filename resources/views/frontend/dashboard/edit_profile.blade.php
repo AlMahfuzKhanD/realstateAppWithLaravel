@@ -53,6 +53,7 @@
                         <div class="inner-box">
                             <div class="lower-content">
                                 <form action="{{ route('user.profile.update') }}" method="post" class="default-form" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-group">
                                         <label>User Name</label>
                                         <input type="text" name="username" required="" value="{{ $userData->username??'' }}"/>
