@@ -17,6 +17,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <!-- End fonts -->
   <script src="{{ asset('backend/assets/js/jquery-3.7.1.min.js') }}"></script>
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
+		<!-- End plugin css for this page -->
 	<!-- core:css -->
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/core/core.css') }}">
 	<!-- endinject -->
@@ -104,6 +107,13 @@
  }
  @endif 
 </script>
+
+	<!-- Data Table -->
+	<script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+	<script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+
+  <script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
+  <!-- End Datatable -->
 
 </body>
 </html>    
