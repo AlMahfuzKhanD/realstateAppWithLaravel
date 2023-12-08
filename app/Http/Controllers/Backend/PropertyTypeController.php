@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\PropertyType;
+use App\Models\Amenities;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use PhpParser\Builder\Property;
+
 
 class PropertyTypeController extends Controller
 {
@@ -79,6 +80,39 @@ class PropertyTypeController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+
+    } //end method
+
+
+    // Amenities All method
+
+    public function AllAmenitie(){
+        $amenities = Amenities::latest()->get();
+        return view('backend.amenities.all_aminitie',compact('amenities'));
+    } //end method
+
+    // Add 
+    public function AddAmenitie(){
+        
+        return view('backend.amenities.add_aminitie');
+    } //end method StoreAmenitie
+
+    public function StoreAmenitie(Request $request){
+
+        // Validation
+        $request->validate([
+            'amenities_name' => 'required|unique:amenities|max:200'
+        ]);
+
+        Amenities::insert([
+            'amenities_name' => $request->amenities_name
+        ]);
+
+        $notification = array(
+            'message' => 'Amenitie Created successfully!!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.amenitie')->with($notification);
 
     } //end method
 }
