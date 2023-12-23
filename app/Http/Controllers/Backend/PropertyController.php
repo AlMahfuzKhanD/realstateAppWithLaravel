@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Property;
+use App\Models\Amenities;
+use App\Models\PropertyType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,6 +17,9 @@ class PropertyController extends Controller
     } // end of AllProperty
 
     public function AddProperty(){
-        return view('backend.property.add_property');
+        $propertyType = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+        $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
+        return view('backend.property.add_property',compact('propertyType','amenities','activeAgent'));
     } // end of AddProperty
 }
