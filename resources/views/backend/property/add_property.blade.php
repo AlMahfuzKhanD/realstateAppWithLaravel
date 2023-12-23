@@ -8,18 +8,19 @@
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Add Property</h6>
-                            <form>
+                            <form method="post" action="" id="myForm" enctype="multipart/form-data">
+                                @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Property Name</label>
-                                            <input type="text" class="form-control" name="property_name">
+                                            <input type="text" class="form-control" name="property_name" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Property Status</label>
-                                            <select class="form-select" name="property_status" >
+                                            <select class="form-select" name="property_status" required>
                                                 <option selected="" disabled="">Select Status</option>
                                                 <option value="rent">For Rent</option>
                                                 <option value="buy">For Buy</option>
@@ -29,20 +30,20 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Lowest Price</label>
-                                            <input type="text" class="form-control" name="property_name">
+                                            <input type="text" class="form-control" name="property_name" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Maximum Price</label>
-                                            <input type="text" class="form-control" name="property_name">
+                                            <input type="text" class="form-control" name="property_name" required>
                                         </div>
                                     </div><!-- Col -->
 
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Main Thumbnail</label>
-                                            <input type="file" class="form-control" name="property_thumbnail" onChange="mainThumUrl(this)">
+                                            <input type="file" class="form-control" name="property_thumbnail" onChange="mainThumUrl(this)" required>
                                             <img src="" alt="" id="mainThumb">
                                         </div>
                                     </div><!-- Col -->
@@ -50,7 +51,7 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Multiple Image</label>
-                                            <input type="file" class="form-control" name="multi_img[]" id="multiImg" multiple="">
+                                            <input type="file" class="form-control" name="multi_img[]" id="multiImg" multiple="" required>
                                             <div class="row" id="preview_img"> </div>
                                         </div>
                                     </div><!-- Col -->
@@ -60,25 +61,25 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Bed Rooms</label>
-                                            <input type="text" class="form-control" name="bedrooms">
+                                            <input type="text" class="form-control" name="bedrooms" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Bathrooms</label>
-                                            <input type="text" class="form-control" name="bathrooms">
+                                            <input type="text" class="form-control" name="bathrooms" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Garage</label>
-                                            <input type="text" class="form-control" name="garage">
+                                            <input type="text" class="form-control" name="garage" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Garage Size</label>
-                                            <input type="text" class="form-control" name="garage_size">
+                                            <input type="text" class="form-control" name="garage_size" required>
                                         </div>
                                     </div><!-- Col -->
                                 </div><!-- Row -->
@@ -86,25 +87,25 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Address</label>
-                                            <input type="text" class="form-control" name="address">
+                                            <input type="text" class="form-control" name="address" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">City</label>
-                                            <input type="text" class="form-control" name="city">
+                                            <input type="text" class="form-control" name="city" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">State</label>
-                                            <input type="text" class="form-control" name="state">
+                                            <input type="text" class="form-control" name="state" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Postal Code</label>
-                                            <input type="text" class="form-control" name="postal_code">
+                                            <input type="text" class="form-control" name="postal_code" required>
                                         </div>
                                     </div><!-- Col -->
                                 </div><!-- Row -->
@@ -112,19 +113,19 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Size</label>
-                                            <input type="text" class="form-control" name="property_size">
+                                            <input type="text" class="form-control" name="property_size" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Video</label>
-                                            <input type="text" class="form-control" name="property_video">
+                                            <input type="text" class="form-control" name="property_video" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Neighborhood</label>
-                                            <input type="text" class="form-control" name="neighborhood">
+                                            <input type="text" class="form-control" name="neighborhood" required>
                                         </div>
                                     </div><!-- Col -->
                                     
@@ -133,14 +134,14 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Latitude</label>
-                                            <input type="text" class="form-control" name="latitude">
+                                            <input type="text" class="form-control" name="latitude" required>
                                             <a href="https://www.latlong.net/convert-address-to-lat-long.html" target="_blank">Click to find latitude and logitude</a>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Longitude</label>
-                                            <input type="text" class="form-control" name="longitude">
+                                            <input type="text" class="form-control" name="longitude" required>
                                             <a href="https://www.latlong.net/convert-address-to-lat-long.html" target="_blank">Click to find latitude and logitude</a>
                                         </div>
                                     </div><!-- Col -->
@@ -149,7 +150,7 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Type</label>
-                                            <select class="form-select" name="ptype_id" >
+                                            <select class="form-select" name="ptype_id"  required>
                                                 <option selected="" disabled="">Select Property Type</option>
                                                 @foreach ($propertyType as $ptype)
                                                 <option value="{{ $ptype->id }}">{{ $ptype->type_name }}</option>
@@ -161,7 +162,7 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Amenities</label>
-                                            <select class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%" name="amenities_id[]">
+                                            <select class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%" name="amenities_id[]" required>
                                                 @foreach ($amenities as $amenity)
                                                 <option value="{{ $amenity->id }}">{{ $amenity->amenities_name }}</option>
                                                 @endforeach
@@ -171,7 +172,7 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Agent</label>
-                                            <select class="form-select" name="agent_id" >
+                                            <select class="form-select" name="agent_id"  required>
                                                 <option selected="" disabled="">Select Status</option>
                                                 @foreach ($activeAgent as $agent)
                                                 <option value="{{ $agent->id }}">{{ $agent->name }}</option>
@@ -186,7 +187,7 @@
                                     <div class="col-sm-12">
                                         <div class="mb-3">
                                             <label class="form-label">Short Desc</label>
-                                            <textarea type="text" class="form-control" name="bedrooms" rows="2"></textarea>
+                                            <textarea type="text" class="form-control" name="bedrooms" rows="2"  required></textarea>
                                         </div>
                                     </div><!-- Col -->    
                                 </div><!-- Row -->
@@ -200,13 +201,13 @@
                                 </div><!-- Row -->
                                 <div class="mb-3">
                                     <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="checkInline" name="featured" value="1">
+                                        <input type="checkbox" class="form-check-input" id="checkInline" name="featured" value="1" required>
                                         <label class="form-check-label" for="checkInline">
                                             Featured Property
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="checkInlineChecked" name="hot" value="1">
+                                        <input type="checkbox" class="form-check-input" id="checkInlineChecked" name="hot" value="1" required>
                                         <label class="form-check-label" for="checkInlineChecked">
                                             Hot Property
                                         </label>
@@ -217,7 +218,7 @@
                                     <div class="col-md-4">
                                           <div class="mb-3">
                                                 <label for="facility_name" class="form-label">Facilities </label>
-                                                <select name="facility_name[]" id="facility_name" class="form-control">
+                                                <select name="facility_name[]" id="facility_name" class="form-control" required>
                                                       <option value="">Select Facility</option>
                                                       <option value="Hospital">Hospital</option>
                                                       <option value="SuperMarket">Super Market</option>
@@ -236,7 +237,7 @@
                                     <div class="col-md-4">
                                           <div class="mb-3">
                                                 <label for="distance" class="form-label"> Distance </label>
-                                                <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
+                                                <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)" required>
                                           </div>
                                     </div>
                                     <div class="form-group col-md-4" style="padding-top: 30px;">
@@ -279,9 +280,9 @@
                                    </div>
                                 </div>
                              </div>    
-                            
+                             <button type="submit" class="btn btn-primary">Save Changes</button>
                             </form>
-                            <button type="button" class="btn btn-primary submit">Save Changes</button>
+                            
                     </div>
                 </div>
             </div>
