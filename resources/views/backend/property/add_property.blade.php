@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Add Property</h6>
-                            <form method="post" action="" id="myForm" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('store.property') }}" id="myForm" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -187,7 +187,7 @@
                                     <div class="col-sm-12">
                                         <div class="mb-3">
                                             <label class="form-label">Short Desc</label>
-                                            <textarea type="text" class="form-control" name="bedrooms" rows="2"  required></textarea>
+                                            <textarea type="text" class="form-control" name="short_desc" rows="2"  required></textarea>
                                         </div>
                                     </div><!-- Col -->    
                                 </div><!-- Row -->
@@ -195,7 +195,7 @@
                                     <div class="col-sm-12">
                                         <div class="mb-3">
                                             <label class="form-label">Long Desc</label>
-                                            <textarea class="form-control" name="tinymce" id="tinymceExample" rows="10"></textarea>
+                                            <textarea class="form-control" name="long_desc" id="tinymceExample" rows="10"></textarea>
                                         </div>
                                     </div><!-- Col -->    
                                 </div><!-- Row -->
