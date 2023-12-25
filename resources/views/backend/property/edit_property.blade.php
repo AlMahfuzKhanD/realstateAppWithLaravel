@@ -212,9 +212,44 @@
 
     </div>
 </div>
- <!--========== Start of add multiple class with ajax ==============-->
+ <!--========== Thumbnail Image Update ==============-->
+ <div class="page-content" style="margin-top: -40px; ">
+    <div class="row profile-body">
 
- <!--========== End of add multiple class with ajax ==============-->
+        <!-- middle wrapper start -->
+        <div class="col-md-12 col-xl-12 middle-wrapper">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Edit Main Thumbnail Image</h6>
+                            <form method="post" action="{{ route('update.property.thumbnail') }}" id="myForm" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $property->id }}">
+                                <input type="hidden" name="old_image" value="{{ $property->property_thumbnail }}">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Main Thumbnail</label>
+                                            <input type="file" class="form-control" name="property_thumbnail" onChange="mainThumUrl(this)" required>
+                                            <img src="" alt="" id="mainThumb" style="margin-top: 10px;">
+                                        </div>
+                                    </div><!-- Col -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label"></label>
+                                            <img src="{{ asset($property->property_thumbnail) }}" alt="no image" style="width: 100px; height:100px;">
+                                        </div>
+                                    </div><!-- Col -->
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!--========== End Thumbnail Image Update ==============-->
 <script type="text/javascript">
     $(document).ready(function (){
         $('#myForm').validate({

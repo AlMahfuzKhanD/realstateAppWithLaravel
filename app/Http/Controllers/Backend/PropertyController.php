@@ -218,4 +218,56 @@ class PropertyController extends Controller
         
 
     } // end of UpdateProperty
+
+    public function UpdatePropertyThumbnail(Request $request){
+
+        $property_id = $request->id;
+        $old_image = $request->old_image;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            
+            if($request->file('property_thumbnail')){
+                $selected_image = $request->file('property_thumbnail');
+                $manager = new ImageManager(new Driver());
+                $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+                $img = $manager->read($selected_image);
+                $img = $img->resize(370,250);
+                $img->toJpeg(80)->save(base_path('public/upload/property/thumbnail/'.$name_gen));
+                $save_url = 'upload/property/thumbnail/'.$name_gen;
+            }
+            
+            if(file_exists($old_image)){
+                unlink($old_image);
+            }
+
+            Property::findOrFail($property_id)->update([
+                'property_thumbnail' => $save_url
+            ]);
+            
+            
+
+            $notification = array(
+                'message' => 'Property Thumbnail Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdatePropertyThumbnail
+
+
 }
