@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->integer('ptype_id');
-            $table->integer('amenities_id');
+            $table->string('amenities_id');
             $table->string('property_name');
             $table->string('property_slug');
             $table->string('property_code');
