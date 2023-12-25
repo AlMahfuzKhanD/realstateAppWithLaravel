@@ -30,13 +30,13 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Lowest Price</label>
-                                            <input type="text" class="form-control" name="property_name" required>
+                                            <input type="text" class="form-control" name="lowest_price" required>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Maximum Price</label>
-                                            <input type="text" class="form-control" name="property_name" required>
+                                            <input type="text" class="form-control" name="maximum_price" required>
                                         </div>
                                     </div><!-- Col -->
 
