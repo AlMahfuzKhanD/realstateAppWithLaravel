@@ -7,7 +7,8 @@ use App\Models\Property;
 use App\Models\Amenities;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image as ResizeImage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use App\Http\Controllers\Controller;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -26,16 +27,22 @@ class PropertyController extends Controller
     } // end of AddProperty
 
     public function StoreProperty(Request $request){
+
+        if($request->file('property_thumbnail')){
+            $selected_image = $request->file('property_thumbnail');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+            $img = $manager->read($selected_image);
+            $img = $img->resize(370,250);
+            $img->toJpeg(80)->save(base_path('public/upload/property/thumbnail/'.$name_gen));
+            $save_url = 'upload/property/thumbnail/'.$name_gen;
+        }
         
         $amen = $request->amenities_id;
         $amenities = implode(",",$amen);
 
         $pcode = IdGenerator::generate(['table' => 'properties', 'field' => 'property_code','length' => 5, 'prefix' =>'PC']);
 
-        $image = $request->file('property_thumbnail');
-        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        ResizeImage::make($image)->resize(370,250)->save('upload/property/thumbnail/'.$name_gen);
-        $save_url = 'upload/property/thumbnail/'.$name_gen;
 
         $property = Property::insertGetId([
             'ptype_id' => $request->ptype_id,
