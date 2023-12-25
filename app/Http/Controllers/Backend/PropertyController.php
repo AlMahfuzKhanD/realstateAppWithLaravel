@@ -306,7 +306,6 @@ class PropertyController extends Controller
 
             // all good
         } catch (\Exception $e) {
-            dd($e);
             $message = $e->getMessage();
             DB::rollback();
             $notification = array(
@@ -319,6 +318,20 @@ class PropertyController extends Controller
 
         
 
+    } // end of UpdatePropertyMultiImage
+
+    public function DeletePropertyMultiImage($id){
+        
+        $deleteOldImage = MultiImage::findOrFail($id);
+        unlink($deleteOldImage->photo_name);
+
+        MultiImage::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Image Deleted successfully!!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     } // end of UpdatePropertyMultiImage
 
 
