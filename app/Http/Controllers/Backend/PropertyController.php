@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Backend;
 
+use DB;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Facility;
 use App\Models\Property;
 use App\Models\Amenities;
+use App\Models\MultiImage;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-use App\Http\Controllers\Controller;
-use App\Models\Facility;
-use App\Models\MultiImage;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use DB;
 
 class PropertyController extends Controller
 {
@@ -154,4 +155,67 @@ class PropertyController extends Controller
         return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_aminity'));
 
     } // end of EditProperty
+
+    public function UpdateProperty(Request $request){
+
+        $property_id = $request->id;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            
+            $amen = $request->amenities_id;
+            $amenities = implode(",",$amen);
+    
+            Property::findOrFail($property_id)->update([
+                'ptype_id' => $request->ptype_id,
+                'amenities_id' => $amenities,
+                'property_name' => $request->property_name,
+                'property_slug' => strtolower(str_replace(' ','-',$request->property_name)),
+                'property_status' => $request->property_status,
+                'lowest_price' => $request->lowest_price,
+                'maximum_price' => $request->maximum_price,
+                'short_desc' => $request->short_desc,
+                'long_desc' => $request->long_desc,
+                'bedrooms' => $request->bedrooms,
+                'bathrooms' => $request->bathrooms,
+                'garage' => $request->garage,
+                'garage_size' => $request->garage_size,
+                'property_size' => $request->property_size,
+                'property_video' => $request->property_video,
+                'address' => $request->address,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postal_code,
+                'neighborhood' => $request->neighborhood,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'featured' => $request->featured,
+                'hot' => $request->hot,
+                'agent_id' => $request->agent_id,
+                'updated_at' => Carbon::now()
+            ]);
+            
+            
+
+            $notification = array(
+                'message' => 'Property Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.property')->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            return back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdateProperty
 }
