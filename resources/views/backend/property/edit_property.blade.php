@@ -250,6 +250,56 @@
     </div>
 </div>
  <!--========== End Thumbnail Image Update ==============-->
+
+  <!--========== Property Multi Image Update ==============-->
+  <div class="page-content" style="margin-top: -40px; ">
+    <div class="row profile-body">
+
+        <!-- middle wrapper start -->
+        <div class="col-md-12 col-xl-12 middle-wrapper">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Edit Multi Image</h6>
+                            <form method="post" action="{{ route('update.property.multiimage') }}" id="myForm" enctype="multipart/form-data">
+                                @csrf
+                                <div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>SL</th>
+												<th>Image</th>
+												<th>Change Image</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+                                            @foreach ($multi_image as $key => $img)
+                                            <tr>
+                                                <td>{{ $key+1 }}</td>
+												<td class="py-1">
+													<img src="{{ asset($img->photo_name) }}" alt="image" style="width:50px;height:50px;">
+												</td>
+												<td><input type="file" class="form-control" name="multi_img[{{ $img->id }}]"></td>
+												<td>
+                                                    <input type="submit" class="btn btn-primary px-4" value="Update Image">
+                                                    <a href="" class="btn btn-danger" id="delete">Delete</a>
+                                                </td>
+											</tr>
+                                            @endforeach
+											
+											
+										</tbody>
+									</table>
+								</div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <!--========== End Property Multi Image Update ==============-->
 <script type="text/javascript">
     $(document).ready(function (){
         $('#myForm').validate({

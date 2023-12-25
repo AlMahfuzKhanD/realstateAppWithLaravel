@@ -148,11 +148,12 @@ class PropertyController extends Controller
 
         $property_aminity = $property->amenities_id;
         $property_aminity = explode(',',$property_aminity);
+        $multi_image = MultiImage::where('property_id',$id)->get();
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
         $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
 
-        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_aminity'));
+        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_aminity','multi_image'));
 
     } // end of EditProperty
 
@@ -268,6 +269,57 @@ class PropertyController extends Controller
         
 
     } // end of UpdatePropertyThumbnail
+
+    public function UpdatePropertyMultiImage(Request $request){
+        
+        $images = $request->multi_img;
+        
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+            foreach($images as $id => $image){
+                
+                    $deleteOldImage = MultiImage::findOrFail($id);
+                    unlink($deleteOldImage->photo_name);
+
+                    $manager = new ImageManager(new Driver());
+                    $generate_name = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+                    $mul_img = $manager->read($image);
+                    $mul_img = $mul_img->resize(770,520);
+                    $mul_img->toJpeg(80)->save(base_path('public/upload/property/multi-image/'.$generate_name));
+                    $uploaded_url = 'upload/property/multi-image/'.$generate_name;
+                    MultiImage::where('id', $id)->update(['photo_name' => $uploaded_url]);
+                    
+
+            }    // end foreach
+
+            $notification = array(
+                'message' => 'Image Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            dd($e);
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdatePropertyMultiImage
 
 
 }
