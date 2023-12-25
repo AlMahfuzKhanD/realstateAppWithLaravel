@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td><img src="{{ asset($item->property_thumbnail) }}" alt="" style="width: 70px; height:40px;"></td>
-                            <td>{{ $item->propety_name }}</td>
+                            <td>{{ $item->property_name }}</td>
                             <td>{{ $item['type']['type_name'] }}</td>
                             <td>{{ $item->property_status }}</td>
                             <td>{{ $item->city }}</td>
@@ -45,7 +45,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('edit.type',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
+                                <a href="{{ route('edit.property',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
                                 <a href="{{ route('delete.type',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
                             </td>
     
