@@ -85,6 +85,5 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/property/multiimage','UpdatePropertyMultiImage')->name('update.property.multiimage');
         Route::get('/delete/property/multiimage/{id}','DeletePropertyMultiImage')->name('delete.property.multiimage');
        
-        
     });
 });
