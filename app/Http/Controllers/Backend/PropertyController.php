@@ -113,7 +113,7 @@ class PropertyController extends Controller
                 $facilities = Count($request->facility_name);
                 // dd($request->all(),$facilities);
                 if($facilities != NULL){
-                    for ($i=0; $i < $facilities; $i++) { 
+                    for ($i=0; $i < $facilities-1; $i++) { 
                         $facility = new Facility();
                         $facility->property_id = $property_id;
                         $facility->facility_name = $request->facility_name[$i];
