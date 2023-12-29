@@ -326,41 +326,80 @@
                                 @csrf
                                 <input type="hidden" name="property_id" value="{{ $property->id }}">
                                 @foreach ($facilities as $facility)
-                                <div class="whole_extra_item_delete" id="whole_extra_item_delete">
-                                          
-                                    <div class="row" style="margin-top: 10px !important;">
-                        
-                                       <div class="form-group col-md-4">
-                                          <label for="facility_name">Facilities</label>
-                                          <select name="facility_name[]" id="facility_name" class="form-control">
-                                                <option value="">Select Facility</option>
-                                                <option value="Hospital" {{ $facility->facility_name == 'Hospital' ? 'selected' : ''}}>Hospital</option>
-                                                <option value="SuperMarket" {{ $facility->facility_name == 'SuperMarket' ? 'selected' : ''}}>Super Market</option>
-                                                <option value="School" {{ $facility->facility_name == 'School' ? 'selected' : ''}}>School</option>
-                                                <option value="Entertainment" {{ $facility->facility_name == 'Entertainment' ? 'selected' : ''}}>Entertainment</option>
-                                                <option value="Pharmacy" {{ $facility->facility_name == 'Pharmacy' ? 'selected' : ''}}>Pharmacy</option>
-                                                 <option value="Airport" {{ $facility->facility_name == 'Airport' ? 'selected' : ''}}>Airport</option>
-                                                <option value="Railways" {{ $facility->facility_name == 'Railways' ? 'selected' : ''}}>Railways</option>
-                                                <option value="Bus Stop" {{ $facility->facility_name == 'Bus Stop' ? 'selected' : ''}}>Bus Stop</option>
-                                                <option value="Beach" {{ $facility->facility_name == 'Beach' ? 'selected' : ''}}>Beach</option>
-                                                <option value="Mall" {{ $facility->facility_name == 'Mall' ? 'selected' : ''}}>Mall</option>
-                                                <option value="Bank" {{ $facility->facility_name == 'Bank' ? 'selected' : ''}}>Bank</option>
-                                          </select>
-                                       </div>
-                                       <div class="form-group col-md-4">
-                                          <label for="distance">Distance</label>
-                                          <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)" value="{{ $facility->distance??'' }}">
-                                       </div>
-                                       <div class="form-group col-md-4" style="padding-top: 20px">
-                                          <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
-                                          <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
-                                       </div>
-                                    </div>
-                                 
-                              </div> 
+                                <div class="row add_item">
+                                    <div class="whole_extra_item_add" id="whole_extra_item_add">
+                                        <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+                                                
+                                            <div class="row" style="margin-top: 10px !important;">
+                                
+                                            <div class="form-group col-md-4">
+                                                <label for="facility_name">Facilities</label>
+                                                <select name="facility_name[]" id="facility_name" class="form-control">
+                                                        <option value="">Select Facility</option>
+                                                        <option value="Hospital" {{ $facility->facility_name == 'Hospital' ? 'selected' : ''}}>Hospital</option>
+                                                        <option value="SuperMarket" {{ $facility->facility_name == 'SuperMarket' ? 'selected' : ''}}>Super Market</option>
+                                                        <option value="School" {{ $facility->facility_name == 'School' ? 'selected' : ''}}>School</option>
+                                                        <option value="Entertainment" {{ $facility->facility_name == 'Entertainment' ? 'selected' : ''}}>Entertainment</option>
+                                                        <option value="Pharmacy" {{ $facility->facility_name == 'Pharmacy' ? 'selected' : ''}}>Pharmacy</option>
+                                                        <option value="Airport" {{ $facility->facility_name == 'Airport' ? 'selected' : ''}}>Airport</option>
+                                                        <option value="Railways" {{ $facility->facility_name == 'Railways' ? 'selected' : ''}}>Railways</option>
+                                                        <option value="Bus Stop" {{ $facility->facility_name == 'Bus Stop' ? 'selected' : ''}}>Bus Stop</option>
+                                                        <option value="Beach" {{ $facility->facility_name == 'Beach' ? 'selected' : ''}}>Beach</option>
+                                                        <option value="Mall" {{ $facility->facility_name == 'Mall' ? 'selected' : ''}}>Mall</option>
+                                                        <option value="Bank" {{ $facility->facility_name == 'Bank' ? 'selected' : ''}}>Bank</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="distance">Distance</label>
+                                                <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)" value="{{ $facility->distance??'' }}">
+                                            </div>
+                                            <div class="form-group col-md-4" style="padding-top: 20px">
+                                                <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
+                                                <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
+                                            </div>
+                                            </div>
+                                        
+                                        </div> 
+                                    </div> 
+                                </div> 
                                 @endforeach
                                 
-                               
+                                <div style="visibility: hidden">
+                                    <div class="whole_extra_item_add" id="whole_extra_item_add">
+                                       <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+                                          
+                                             <div class="row" style="margin-top: 10px !important;">
+                                 
+                                                <div class="form-group col-md-4">
+                                                   <label for="facility_name">Facilities</label>
+                                                   <select name="facility_name[]" id="facility_name" class="form-control">
+                                                         <option value="">Select Facility</option>
+                                                         <option value="Hospital">Hospital</option>
+                                                         <option value="SuperMarket">Super Market</option>
+                                                         <option value="School">School</option>
+                                                         <option value="Entertainment">Entertainment</option>
+                                                         <option value="Pharmacy">Pharmacy</option>
+                                                         <option value="Airport">Airport</option>
+                                                         <option value="Railways">Railways</option>
+                                                         <option value="Bus Stop">Bus Stop</option>
+                                                         <option value="Beach">Beach</option>
+                                                         <option value="Mall">Mall</option>
+                                                         <option value="Bank">Bank</option>
+                                                   </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                   <label for="distance">Distance</label>
+                                                   <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
+                                                </div>
+                                                <div class="form-group col-md-4" style="padding-top: 20px">
+                                                   <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
+                                                   <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
+                                                </div>
+                                             </div>
+                                          
+                                       </div>
+                                    </div>
+                                 </div> 
                             <button type="submit" class="btn btn-primary">Save Changes</button> <!---end row-->
                             </form>
                     </div>
