@@ -410,5 +410,41 @@ class PropertyController extends Controller
         return redirect()->back()->with($notification);
     } // end of StoreNewMultiImage
 
+    public function DeleteProperty($id){
+        
+        
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+            $delete_property = Property::where('id',$id)->delete();
+            if($delete_property){
+                MultiImage::where('property_id',$id)->delete();
+                Facility::where('property_id',$id)->delete();
+            }
+        
+            $notification = array(
+                'message' => 'Property Deleted successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of UpdatePropertyMultiImage
+
 
 }
