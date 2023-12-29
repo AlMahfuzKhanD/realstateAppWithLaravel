@@ -87,6 +87,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/store/new/multiimage','StoreNewMultiImage')->name('store.new.multiimage');
         Route::post('/update/property/facility','UpdatePropertyFacility')->name('update.property.facility');
         Route::get('/delete/property/{id}','DeleteProperty')->name('delete.property');
+        Route::get('/details/property/{id}','DetailsProperty')->name('details.property');
        
     });
 });
