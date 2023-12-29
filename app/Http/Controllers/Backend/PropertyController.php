@@ -336,7 +336,7 @@ class PropertyController extends Controller
     } // end of UpdatePropertyMultiImage
     
     public function StoreNewMultiImage(Request $request){
-        // dd($request->all(),$request->file('multi_img_add_in_edit'));
+
         $property_id = $request->property_id;
         $images = $request->file('multi_img_add_in_edit');
         
@@ -381,6 +381,33 @@ class PropertyController extends Controller
             return redirect()->back()->with($notification);
             // something went wrong
         }
+    } // end of StoreNewMultiImage
+
+    public function UpdatePropertyFacility(Request $request){
+
+        $property_id = $request->property_id;
+        $facilities = $request->facility_name;
+        if($facilities == NULL){
+            return redirect()->back();
+        }else{
+            Facility::where('property_id',$property_id)->delete();
+            $facilities = Count($request->facility_name);
+            
+                for ($i=0; $i < $facilities-1; $i++) { 
+                    $facility = new Facility();
+                    $facility->property_id = $property_id;
+                    $facility->facility_name = $request->facility_name[$i];
+                    $facility->distance = $request->distance[$i];
+                    $facility->save();
+    
+                } // end for
+            
+        }
+        $notification = array(
+            'message' => 'Facility Updated successfully!!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     } // end of StoreNewMultiImage
 
 
