@@ -88,6 +88,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/property/facility','UpdatePropertyFacility')->name('update.property.facility');
         Route::get('/delete/property/{id}','DeleteProperty')->name('delete.property');
         Route::get('/details/property/{id}','DetailsProperty')->name('details.property');
+        Route::post('/inactive/property','InActiveProperty')->name('inactive.property');
+        Route::post('/active/property','ActiveProperty')->name('active.property');
        
     });
 });
