@@ -333,6 +333,54 @@ class PropertyController extends Controller
         );
         return redirect()->back()->with($notification);
     } // end of UpdatePropertyMultiImage
+    
+    public function StoreNewMultiImage(Request $request){
+        // dd($request->all(),$request->file('multi_img_add_in_edit'));
+        $property_id = $request->property_id;
+        $images = $request->file('multi_img_add_in_edit');
+        
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+                foreach($images as $multi_img){
+        
+                    $manager = new ImageManager(new Driver());
+                    $generate_name = hexdec(uniqid()).'.'.$multi_img->getClientOriginalExtension();
+                    $mul_img = $manager->read($multi_img);
+                    $mul_img = $mul_img->resize(770,520);
+                    $mul_img->toJpeg(80)->save(base_path('public/upload/property/multi-image/'.$generate_name));
+                    $uploaded_url = 'upload/property/multi-image/'.$generate_name;
+        
+                    MultiImage::insert([
+                        'property_id' => $property_id,
+                        'photo_name' => $uploaded_url
+                    ]);
+        
+                } // end foreach
+
+            $notification = array(
+                'message' => 'Image Added successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of StoreNewMultiImage
 
 
 }
