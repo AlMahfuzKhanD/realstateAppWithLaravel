@@ -411,9 +411,6 @@ class PropertyController extends Controller
     } // end of StoreNewMultiImage
 
     public function DeleteProperty($id){
-        
-        
-
         $notification = array(
             'message' => 'Something Went Wrong!!',
             'alert-type' => 'warning'
@@ -421,8 +418,14 @@ class PropertyController extends Controller
         DB::beginTransaction();
         try {
 
-            $delete_property = Property::where('id',$id)->delete();
+            $property = Property::findOrFail($id);
+            unlink($property->property_thumbnail);
+            $delete_property = $property->delete();
             if($delete_property){
+                $images = MultiImage::where('property_id',$id)->get();
+                foreach($images as $img){
+                    unlink($img->photo_name);
+                }
                 MultiImage::where('property_id',$id)->delete();
                 Facility::where('property_id',$id)->delete();
             }
@@ -444,7 +447,7 @@ class PropertyController extends Controller
             return redirect()->back()->with($notification);
             // something went wrong
         }
-    } // end of UpdatePropertyMultiImage
+    } // end of DeleteProperty
 
 
 }
