@@ -7,6 +7,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
@@ -110,5 +111,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/delete/agent/{id}','DeleteAgent')->name('delete.agent');
         Route::post('/update/agent','UpdateAgent')->name('update.agent');
         Route::get('/changeStatus','ChangeStatus');
+    });
+}); // Admin Middleware
+
+
+//Agent Group Middleware
+Route::middleware(['auth','role:agent'])->group(function(){
+
+    // Agent all property
+    Route::controller(AgentPropertyController::class)->group(function(){ 
+        Route::get('/all/agent/property','AllAgentProperty')->name('all.agent.property');
     });
 });
