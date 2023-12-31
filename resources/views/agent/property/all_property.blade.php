@@ -3,7 +3,7 @@
 
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <a href="{{ route('add.property') }}" class="btn btn-inverse-info">Add Property</a>
+            <a href="{{ route('add.agent.property') }}" class="btn btn-inverse-info">Add Property</a>
         </ol>
     </nav>
 

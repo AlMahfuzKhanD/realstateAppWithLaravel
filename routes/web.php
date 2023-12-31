@@ -121,5 +121,7 @@ Route::middleware(['auth','role:agent'])->group(function(){
     // Agent all property
     Route::controller(AgentPropertyController::class)->group(function(){ 
         Route::get('/all/agent/property','AllAgentProperty')->name('all.agent.property');
+        Route::get('/add/agent/property','AddAgentProperty')->name('add.agent.property');
+        Route::post('/store/agent/property','StoreAgentProperty')->name('store.agent.property');
     });
 });
