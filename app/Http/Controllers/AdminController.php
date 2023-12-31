@@ -98,4 +98,20 @@ class AdminController extends Controller
         );
         return redirect('/admin/login')->with($notification);
     } // end AdminLogout
+
+    // Agent related code
+    public function AllAgent(){
+        $all_agent = User::where('role','agent')->get();
+        return view('backend.agent.all_agent',compact('all_agent'));
+    } // end of AllAgent
+
+    public function AddAgent(){
+        $all_agent = User::where('role','agent')->get();
+        return view('backend.agent.add_gent',compact('all_agent'));
+    } // end of AddAgent
+
+    public function StoreAgent(Request $request){
+        $all_agent = User::where('role','agent')->get();
+        return view('backend.agent.add_gent',compact('all_agent'));
+    } // end of StoreAgent
 }
