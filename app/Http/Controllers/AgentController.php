@@ -35,4 +35,19 @@ class AgentController extends Controller
 
         return redirect(RouteServiceProvider::AGENT);
     } // End of AgentLogin
+
+    public function AgentLogout(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        $notification = array(
+            'message' => 'Agent logout Successfully!!',
+            'alert-type' => 'success'
+        );
+        return redirect('/agent/login')->with($notification);
+    } // end AgentLogout
 }
