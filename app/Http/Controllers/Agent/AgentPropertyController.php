@@ -410,5 +410,57 @@ class AgentPropertyController extends Controller
         return redirect()->back()->with($notification);
     } // end of UpdateAgentPropertyFacility
 
+    public function DetailsAgentProperty($id){
+        $property = Property::findOrFail($id);
+
+        $property_aminity = $property->amenities_id;
+        $property_aminity = explode(',',$property_aminity);
+        $multi_image = MultiImage::where('property_id',$id)->get();
+        $facilities = Facility::where('property_id',$id)->get();
+        $propertyType = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+
+        return view('agent.property.details_property',compact('property','propertyType','amenities','property_aminity','multi_image','facilities'));
+    } // end of DetailsAgentProperty
+
+    public function DeleteAgentProperty($id){
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+            $property = Property::findOrFail($id);
+            unlink($property->property_thumbnail);
+            $delete_property = $property->delete();
+            if($delete_property){
+                $images = MultiImage::where('property_id',$id)->get();
+                foreach($images as $img){
+                    unlink($img->photo_name);
+                }
+                MultiImage::where('property_id',$id)->delete();
+                Facility::where('property_id',$id)->delete();
+            }
+        
+            $notification = array(
+                'message' => 'Property Deleted successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of DeleteProperty
+
 
 }

@@ -45,9 +45,9 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('details.property',$item->id) }}" class="btn btn-inverse-info" title="details"> <i data-feather="eye"></i></a>
+                                <a href="{{ route('details.agent.property',$item->id) }}" class="btn btn-inverse-info" title="details"> <i data-feather="eye"></i></a>
                                 <a href="{{ route('edit.agent.property',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
-                                <a href="{{ route('delete.property',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
+                                <a href="{{ route('delete.agent.property',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
                             </td>
     
                         </tr>
