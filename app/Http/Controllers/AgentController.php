@@ -12,7 +12,7 @@ use Illuminate\Auth\Events\Registered;
 class AgentController extends Controller
 {
     public function AgentDashboard(){
-        return view('agent.agent_dashboard');
+        return view('agent.index');
     } // End of AdminDashboard
 
     public function AgentLogin(){
