@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,12 +107,79 @@ class AdminController extends Controller
     } // end of AllAgent
 
     public function AddAgent(){
-        $all_agent = User::where('role','agent')->get();
-        return view('backend.agent.add_gent',compact('all_agent'));
+        return view('backend.agent.add_gent');
     } // end of AddAgent
 
     public function StoreAgent(Request $request){
-        $all_agent = User::where('role','agent')->get();
-        return view('backend.agent.add_gent',compact('all_agent'));
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            User::insert([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'password' => Hash::make($request->password),
+                'role' => 'agent',
+                'status' => 'active',
+            ]);
+            DB::commit();
+            $notification = array(
+                'message' => 'Agent Created Successfully!!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.agent')->with($notification);
+
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
     } // end of StoreAgent
+
+    public function EditAgent($id){
+        $agent = User::findOrFail($id);
+        return view('backend.agent.edit_gent',compact('agent'));
+    } // end of AddAgent
+
+    public function UpdateAgent(Request $request){
+        $agent_id = $request->id;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            User::findOrFail($agent_id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+            ]);
+            DB::commit();
+            $notification = array(
+                'message' => 'Agent Created Successfully!!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.agent')->with($notification);
+
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of UpdateAgent
 }
