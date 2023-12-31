@@ -142,4 +142,198 @@ class AgentPropertyController extends Controller
         
 
     } // end of StoreAgentProperty
+
+    public function EditAgentProperty($id){
+
+        $property = Property::findOrFail($id);
+
+        $property_aminity = $property->amenities_id;
+        $property_aminity = explode(',',$property_aminity);
+        $multi_image = MultiImage::where('property_id',$id)->get();
+        $facilities = Facility::where('property_id',$id)->get();
+        $propertyType = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+
+        return view('agent.property.edit_property',compact('property','propertyType','amenities','property_aminity','multi_image','facilities'));
+
+    } // end of EditProperty
+
+    public function UpdateAgentProperty(Request $request){
+
+        $property_id = $request->id;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            
+            $amen = $request->amenities_id;
+            $amenities = implode(",",$amen);
+    
+            Property::findOrFail($property_id)->update([
+                'ptype_id' => $request->ptype_id,
+                'amenities_id' => $amenities,
+                'property_name' => $request->property_name,
+                'property_slug' => strtolower(str_replace(' ','-',$request->property_name)),
+                'property_status' => $request->property_status,
+                'lowest_price' => $request->lowest_price,
+                'maximum_price' => $request->maximum_price,
+                'short_desc' => $request->short_desc,
+                'long_desc' => $request->long_desc,
+                'bedrooms' => $request->bedrooms,
+                'bathrooms' => $request->bathrooms,
+                'garage' => $request->garage,
+                'garage_size' => $request->garage_size,
+                'property_size' => $request->property_size,
+                'property_video' => $request->property_video,
+                'address' => $request->address,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postal_code,
+                'neighborhood' => $request->neighborhood,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'featured' => $request->featured,
+                'hot' => $request->hot,
+                'agent_id' => Auth::user()->id,
+                'updated_at' => Carbon::now()
+            ]);
+            
+            
+
+            $notification = array(
+                'message' => 'Property Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.agent.property')->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            return back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdateAgentProperty
+
+    public function UpdateAgentPropertyThumbnail(Request $request){
+
+        $property_id = $request->id;
+        $old_image = $request->old_image;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            
+            if($request->file('property_thumbnail')){
+                $selected_image = $request->file('property_thumbnail');
+                $manager = new ImageManager(new Driver());
+                $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+                $img = $manager->read($selected_image);
+                $img = $img->resize(370,250);
+                $img->toJpeg(80)->save(base_path('public/upload/property/thumbnail/'.$name_gen));
+                $save_url = 'upload/property/thumbnail/'.$name_gen;
+            }
+            
+            if(file_exists($old_image)){
+                unlink($old_image);
+            }
+
+            Property::findOrFail($property_id)->update([
+                'property_thumbnail' => $save_url
+            ]);
+            
+            
+
+            $notification = array(
+                'message' => 'Property Thumbnail Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdatePropertyThumbnail
+
+    public function UpdateAgentPropertyMultiImage(Request $request){
+        
+        $images = $request->multi_img;
+        
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+            foreach($images as $id => $image){
+                
+                    $deleteOldImage = MultiImage::findOrFail($id);
+                    unlink($deleteOldImage->photo_name);
+
+                    $manager = new ImageManager(new Driver());
+                    $generate_name = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+                    $mul_img = $manager->read($image);
+                    $mul_img = $mul_img->resize(770,520);
+                    $mul_img->toJpeg(80)->save(base_path('public/upload/property/multi-image/'.$generate_name));
+                    $uploaded_url = 'upload/property/multi-image/'.$generate_name;
+                    MultiImage::where('id', $id)->update(['photo_name' => $uploaded_url]);
+                    
+
+            }    // end foreach
+
+            $notification = array(
+                'message' => 'Image Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdatePropertyMultiImage
+
+    public function DeleteAgentPropertyMultiImage($id){
+        
+        $deleteOldImage = MultiImage::findOrFail($id);
+        unlink($deleteOldImage->photo_name);
+
+        MultiImage::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Image Deleted successfully!!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    } // end of UpdatePropertyMultiImage
+
+
 }

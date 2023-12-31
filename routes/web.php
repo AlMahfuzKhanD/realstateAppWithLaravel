@@ -123,5 +123,10 @@ Route::middleware(['auth','role:agent'])->group(function(){
         Route::get('/all/agent/property','AllAgentProperty')->name('all.agent.property');
         Route::get('/add/agent/property','AddAgentProperty')->name('add.agent.property');
         Route::post('/store/agent/property','StoreAgentProperty')->name('store.agent.property');
+        Route::get('/edit/agent/property/{id}','EditAgentProperty')->name('edit.agent.property');
+        Route::post('/update/agent/property','UpdateAgentProperty')->name('update.agent.property');
+        Route::post('/update/agent/property/thumbnail','UpdateAgentPropertyThumbnail')->name('update.agent.property.thumbnail');
+        Route::post('/update/agent/property/multiimage','UpdateAgentPropertyMultiImage')->name('update.agent.property.multiimage');
+        Route::get('/delete/agent/property/multiimage/{id}','DeleteAgentPropertyMultiImage')->name('delete.agent.property.multiimage');
     });
 });
