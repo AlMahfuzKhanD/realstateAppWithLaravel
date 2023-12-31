@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
-        AL<span>MAHFUZ</span>
+        ADMIN<span>DASHBOARD</span>
         </a>
         <div class="sidebar-toggler not-active">
         <span></span>
