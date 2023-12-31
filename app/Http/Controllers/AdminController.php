@@ -212,4 +212,19 @@ class AdminController extends Controller
             // something went wrong
         }
     } // end of DeleteAgent
+
+    public function ChangeStatus(Request $request){
+
+        $user = User::find($request->user_id);
+        if($user->status == 'active'){
+            $user->status = 'inactive';
+        }else{
+            $user->status = 'active';
+        }
+
+        $user->save();
+
+        return response()->json(['success'=>'Status Changed successfully']);
+        
+    } // end of ChangeStatus
 }

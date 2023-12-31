@@ -109,5 +109,6 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/edit/agent/{id}','EditAgent')->name('edit.agent');
         Route::get('/delete/agent/{id}','DeleteAgent')->name('delete.agent');
         Route::post('/update/agent','UpdateAgent')->name('update.agent');
+        Route::get('/changeStatus','ChangeStatus');
     });
 });

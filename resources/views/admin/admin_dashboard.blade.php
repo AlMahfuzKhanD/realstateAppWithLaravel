@@ -29,6 +29,7 @@
 
 	<!-- Plugin css for this page -->
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.css') }}">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 	<!-- End plugin css for this page -->
 
 	<!-- inject:css -->
@@ -137,5 +138,6 @@
 	<script src="{{ asset('backend/assets/vendors/tinymce/tinymce.min.js') }}"></script>
 	<script src="{{ asset('backend/assets/js/tinymce.js') }}"></script>
 	<!-- end tinymce:js -->
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </body>
 </html>    
