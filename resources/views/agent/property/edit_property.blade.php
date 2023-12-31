@@ -281,7 +281,7 @@
 									</table>
 								</div>
                             </form>
-                            <form method="post" action="{{ route('store.new.multiimage') }}" id="myForm" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('store.agent.new.multiimage') }}" id="myForm" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="property_id" value="{{ $property->id }}">
                                 <table class="table table-striped">
@@ -310,7 +310,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Edit Property Facilities</h6>
-                            <form method="post" action="{{ route('update.property.facility') }}" id="myForm" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('update.agent.property.facility') }}" id="myForm" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="property_id" value="{{ $property->id }}">
                                 @foreach ($facilities as $facility)

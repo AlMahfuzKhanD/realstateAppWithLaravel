@@ -333,7 +333,82 @@ class AgentPropertyController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-    } // end of UpdatePropertyMultiImage
+    } // end of DeleteAgentPropertyMultiImage
+
+    public function StoreAgentNewMultiImage(Request $request){
+
+        $property_id = $request->property_id;
+        $images = $request->file('multi_img_add_in_edit');
+        
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+                foreach($images as $multi_img){
+        
+                    $manager = new ImageManager(new Driver());
+                    $generate_name = hexdec(uniqid()).'.'.$multi_img->getClientOriginalExtension();
+                    $mul_img = $manager->read($multi_img);
+                    $mul_img = $mul_img->resize(770,520);
+                    $mul_img->toJpeg(80)->save(base_path('public/upload/property/multi-image/'.$generate_name));
+                    $uploaded_url = 'upload/property/multi-image/'.$generate_name;
+        
+                    MultiImage::insert([
+                        'property_id' => $property_id,
+                        'photo_name' => $uploaded_url
+                    ]);
+        
+                } // end foreach
+
+            $notification = array(
+                'message' => 'Image Added successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of StoreAgentNewMultiImage
+
+    public function UpdateAgentPropertyFacility(Request $request){
+
+        $property_id = $request->property_id;
+        $facilities = $request->facility_name;
+        if($facilities == NULL){
+            return redirect()->back();
+        }else{
+            Facility::where('property_id',$property_id)->delete();
+            $facilities = Count($request->facility_name);
+            
+                for ($i=0; $i < $facilities-1; $i++) { 
+                    $facility = new Facility();
+                    $facility->property_id = $property_id;
+                    $facility->facility_name = $request->facility_name[$i];
+                    $facility->distance = $request->distance[$i];
+                    $facility->save();
+    
+                } // end for
+            
+        }
+        $notification = array(
+            'message' => 'Facility Updated successfully!!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    } // end of UpdateAgentPropertyFacility
 
 
 }
