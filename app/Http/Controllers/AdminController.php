@@ -182,4 +182,34 @@ class AdminController extends Controller
             // something went wrong
         }
     } // end of UpdateAgent
+    public function DeleteAgent($id){
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            $user_info = User::findOrFail($id);
+            if($user_info->photo != NULL){
+                @unlink(public_path('upload/agent_images/'.$user_info->photo));
+            }
+            $user_info->delete();
+            DB::commit();
+            $notification = array(
+                'message' => 'Agent Deleted Successfully!!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.agent')->with($notification);
+
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of DeleteAgent
 }
