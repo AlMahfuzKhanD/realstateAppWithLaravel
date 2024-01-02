@@ -133,4 +133,10 @@ Route::middleware(['auth','role:agent'])->group(function(){
         Route::get('/details/agent/property/{id}','DetailsAgentProperty')->name('details.agent.property');
         Route::get('/delete/agent/property/{id}','DeleteAgentProperty')->name('delete.agent.property');
     });
+
+    // Agent buy package
+    Route::controller(AgentPropertyController::class)->group(function(){ 
+        Route::get('/all/agent/property','AllAgentProperty')->name('buy.package');
+
+    });
 });
