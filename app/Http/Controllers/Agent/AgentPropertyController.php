@@ -462,5 +462,9 @@ class AgentPropertyController extends Controller
         }
     } // end of DeleteProperty
 
+    public function BuyPackage(){
+        return view('agent.package.buy_package');
+    }
+
 
 }
