@@ -33,7 +33,9 @@ class AgentPropertyController extends Controller
 
     public function StoreAgentProperty(Request $request){
 
-        
+        $user_id = Auth::user()->id;
+        $user_info = User::findOrFail($user_id);
+        $user_credit = $user_info->credit;
 
         DB::beginTransaction();
 
@@ -123,6 +125,10 @@ class AgentPropertyController extends Controller
     
                     }
                 }
+
+                User::where('id',$user_id)->update([
+                    'credit' => DB::raw('1 +'.$user_credit)
+                ]);
             }
 
             $notification = array(
