@@ -12,6 +12,7 @@ use App\Models\MultiImage;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PackagePlan;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -31,7 +32,7 @@ class AgentPropertyController extends Controller
         $user_id = Auth::user()->id;
         $user_info = User::where('role','agent')->where('id',$user_id)->first();
         $user_credit = $user_info->credit;
-        if($user_credit == 1) {
+        if($user_credit == 1 || $user_credit == 7) {
             return redirect()->route('buy.package');
         }else{
             return view('agent.property.add_property',compact('propertyType','amenities'));
@@ -482,7 +483,50 @@ class AgentPropertyController extends Controller
 
     public function BuyBusinessPlan(){
         $user_id = Auth::user()->id;
-        return view('agent.package.business_plan',compact('user_id'));
+        $user_info = User::findOrFail($user_id);
+        return view('agent.package.business_plan',compact('user_id','user_info'));
+    }
+
+    public function StoreBusinessPlan(Request $request){
+        
+        $user_id = Auth::user()->id;
+        $user_info = User::findOrFail($user_id);
+        $user_credit = $user_info->credit;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+            $purchase_package = PackagePlan::insert([
+                'user_id' => $user_id,
+                'package_name' => 'business',
+                'package_credits' => '3',
+                'invoice' => 'MAH'.mt_rand('10000000','99999999'),
+                'package_amount' => '20'
+            ]);
+
+            if($purchase_package){
+                User::where('id',$user_id)->update([
+                    'credit' => DB::raw('3 +'.$user_credit)
+                ]);
+            }
+            
+            $notification = array(
+                'message' => 'You have purchased basic package successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.agent.property')->with($notification);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            
+            return $e->getMessage();
+            // something went wrong
+        }
     }
 
 
