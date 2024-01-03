@@ -529,5 +529,53 @@ class AgentPropertyController extends Controller
         }
     }
 
+    public function BuyProfessionaPlan(){
+        $user_id = Auth::user()->id;
+        $user_info = User::findOrFail($user_id);
+        return view('agent.package.professional_plan',compact('user_id','user_info'));
+    }
+
+    public function StoreProfessionalPlan(Request $request){
+        
+        $user_id = Auth::user()->id;
+        $user_info = User::findOrFail($user_id);
+        $user_credit = $user_info->credit;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+            $purchase_package = PackagePlan::insert([
+                'user_id' => $user_id,
+                'package_name' => 'professional',
+                'package_credits' => '10',
+                'invoice' => 'MAH'.mt_rand('10000000','99999999'),
+                'package_amount' => '50'
+            ]);
+
+            if($purchase_package){
+                User::where('id',$user_id)->update([
+                    'credit' => DB::raw('10 +'.$user_credit)
+                ]);
+            }
+            
+            $notification = array(
+                'message' => 'You have purchased basic package successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.agent.property')->with($notification);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            
+            return $e->getMessage();
+            // something went wrong
+        }
+    }
+
 
 }

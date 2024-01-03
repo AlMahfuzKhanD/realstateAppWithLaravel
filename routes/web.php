@@ -139,6 +139,8 @@ Route::middleware(['auth','role:agent'])->group(function(){
         Route::get('/buy/package','BuyPackage')->name('buy.package');
         Route::get('/buy/business/Plan','BuyBusinessPlan')->name('buy.business.plan');
         Route::post('/store/business/Plan','StoreBusinessPlan')->name('store.business.plan');
+        Route::get('/buy/professinal/Plan','BuyProfessionaPlan')->name('buy.professional.plan');
+        Route::post('/store/professional/Plan','StoreProfessionalPlan')->name('store.professional.plan');
 
     });
 });
