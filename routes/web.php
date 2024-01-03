@@ -137,6 +137,7 @@ Route::middleware(['auth','role:agent'])->group(function(){
     // Agent buy package
     Route::controller(AgentPropertyController::class)->group(function(){ 
         Route::get('/buy/package','BuyPackage')->name('buy.package');
+        Route::get('/buy/business/Plan','BuyBusinessPlan')->name('buy.business.plan');
 
     });
 });
