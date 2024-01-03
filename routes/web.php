@@ -99,6 +99,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/details/property/{id}','DetailsProperty')->name('details.property');
         Route::post('/inactive/property','InActiveProperty')->name('inactive.property');
         Route::post('/active/property','ActiveProperty')->name('active.property');
+        Route::get('/admin/package/history','AdminPackageHistory')->name('admin.package.history');
+        Route::get('/admin/package/invoice/{id}','PackageInvoice')->name('package.invoice');
        
     });
 
