@@ -577,5 +577,11 @@ class AgentPropertyController extends Controller
         }
     }
 
+    public function PackageHistory(){
+        $user_id = Auth::user()->id;
+        $package_info =  PackagePlan::where('user_id',$user_id)->get();
+        return view('agent.package.package_history',compact('package_info'));
+    }
+
 
 }
