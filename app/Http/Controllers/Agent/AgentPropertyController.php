@@ -9,10 +9,11 @@ use App\Models\Facility;
 use App\Models\Property;
 use App\Models\Amenities;
 use App\Models\MultiImage;
+use App\Models\PackagePlan;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use App\Models\PackagePlan;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -582,6 +583,15 @@ class AgentPropertyController extends Controller
         $package_info =  PackagePlan::where('user_id',$user_id)->get();
         return view('agent.package.package_history',compact('package_info'));
     }
+
+    public function PackageInvoice($id){
+        $package_info = PackagePlan::where('id',$id)->first();
+        $pdf = Pdf::loadView('agent.package.package_history_invoice',compact('package_info'))->setPaper('a4')->setOption([
+            'tempDir' => public_path(),
+            'chroot' => public_path()
+        ]);
+        return $pdf->download('package_history_invoice.pdf');
+    } // end method
 
 
 }

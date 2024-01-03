@@ -34,7 +34,7 @@
                             <td>{{ $item->invoice??'' }}</td>
                             <td>{{ $item->package_amount??'' }}</td>
                             <td>
-                                <a href="{{ route('details.agent.property',$item->id) }}" class="btn btn-inverse-info" title="details"> <i data-feather="eye"></i></a>
+                                <a href="{{ route('agent.package.invoice',$item->id) }}" class="btn btn-inverse-info" title="download"> <i data-feather="download"></i></a>
                             </td>
     
                         </tr>

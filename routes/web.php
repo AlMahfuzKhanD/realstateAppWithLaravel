@@ -142,6 +142,7 @@ Route::middleware(['auth','role:agent'])->group(function(){
         Route::get('/buy/professinal/Plan','BuyProfessionaPlan')->name('buy.professional.plan');
         Route::post('/store/professional/Plan','StoreProfessionalPlan')->name('store.professional.plan');
         Route::get('/package/history','PackageHistory')->name('package.history');
+        Route::get('/package/invoice/{id}','PackageInvoice')->name('agent.package.invoice');
 
     });
 });
