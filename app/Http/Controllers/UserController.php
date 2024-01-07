@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Role;
+use App\Models\PropertyType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index(){
-        return view('frontend.index');
+        $property_type = PropertyType::latest()->limit(5)->get();
+        return view('frontend.index',compact('property_type'));
     } // end of index
 
     public function UserProfile(){
