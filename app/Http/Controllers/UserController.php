@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Role;
+use App\Models\Property;
 use App\Models\PropertyType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
