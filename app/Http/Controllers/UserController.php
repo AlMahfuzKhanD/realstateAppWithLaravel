@@ -15,8 +15,7 @@ class UserController extends Controller
     public function index(){
         $property_type = PropertyType::latest()->limit(5)->get();
         $properties = Property::where('status',1)->where('featured',1)->limit(3)->get();
-        dd($properties);
-        return view('frontend.index',compact('property_type'));
+        return view('frontend.index',compact('property_type','properties'));
     } // end of index
 
     public function UserProfile(){
