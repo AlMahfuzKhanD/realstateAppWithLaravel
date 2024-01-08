@@ -322,7 +322,7 @@
                                     <div class="image-box">
                                         <figure class="image"><img src="{{ asset($item->property_thumbnail) }}" alt=""></figure>
                                         <div class="batch"><i class="icon-11"></i></div>
-                                        <span class="category">Featured</span>
+                                        <span class="category">{{ $item->type->type_name??'' }}</span>
                                     </div>
                                     <div class="lower-content">
                                         <div class="author-info clearfix">
