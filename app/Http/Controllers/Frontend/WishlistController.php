@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
@@ -25,5 +26,11 @@ class WishlistController extends Controller
         }else{
             return response()->json(['error'=>'Please Login first!!']);
         }
-    }
+    } // end of method
+
+    public function UserWishList(){
+        $user_id = Auth::user()->id;
+        $profileData = User::find($user_id);
+        return view('frontend.dashboard.wishlist',compact('profileData'));
+    } // end of method
 }

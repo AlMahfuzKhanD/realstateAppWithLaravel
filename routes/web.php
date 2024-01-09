@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
    Route::get('/user/logout',[UserController::class,'UserLogout'])->name('user.logout');
    Route::get('/user/change_password',[UserController::class,'ChangeUserPassword'])->name('change.user.password');
    Route::post('/user/update_password',[UserController::class,'UpdateUserPassword'])->name('update.user.password');
+
+   Route::controller(WishlistController::class)->group(function(){
+    Route::get('/user/wishlist','UserWishList')->name('user.wishlist');
+});
 });
 
 require __DIR__.'/auth.php';

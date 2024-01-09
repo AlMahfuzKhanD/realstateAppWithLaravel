@@ -14,7 +14,7 @@
             <a href="blog-details.html"><i class="fa fa-list-alt" aria-hidden="true"></i> Properties </a>
         </li>
         <li>
-            <a href="blog-details.html"><i class="fa fa-indent" aria-hidden="true"></i> Add a Property </a>
+            <a href="{{ route('user.wishlist') }}"><i class="fa fa-indent" aria-hidden="true"></i> Wishlist </a>
         </li>
         <li>
             <a href="{{ route('change.user.password') }}"><i class="fa fa-key" aria-hidden="true"></i> Security </a>
