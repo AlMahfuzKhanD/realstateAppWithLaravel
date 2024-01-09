@@ -45,7 +45,7 @@
                                             <a href="property-details.html"><i class="icon-12"></i></a>
                                         </li>
                                         <li>
-                                            <a href="property-details.html"><i class="icon-13"></i></a>
+                                            <a aria-label="Add to wish list" class="action-btn" id="{{ $item->id }}" onclick="addToWishList(this.id)"><i class="icon-13"></i></a>
                                         </li>
                                     </ul>
                                 </div>
