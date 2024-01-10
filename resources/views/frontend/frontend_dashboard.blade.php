@@ -314,6 +314,15 @@
                             <p>${value.property.bathrooms}</p>
                         </td>
                         
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Action</p>
+                        </td>
+                        <td>
+                            <a type="submit" class="text-body" id="${value.id}" onclick="compareRemove(this.id)"><i class="fa fa-trash"></i></a>
+                        </td>
+                        
                     </tr>`;
                     });
                     $('#compare').html(rows);

@@ -38,4 +38,9 @@ class CompareController extends Controller
             'compare' => $compare
         ]);
     } // end of GetWishListProperty method
+
+    public function RemoveFromCompare($id){
+        Compare::where('user_id',Auth::id())->where('id',$id)->delete();
+        return response()->json(['success' => 'Removed success!!']);
+    }
 }
