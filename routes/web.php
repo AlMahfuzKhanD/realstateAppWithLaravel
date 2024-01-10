@@ -44,11 +44,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/remove-from-wishlist/{id}','RemoveFromWishlist');
     });
 
-    // Route::controller(CompareController::class)->group(function(){
-    //     Route::get('/user/wishlist','UserWishList')->name('user.wishlist');
-    //     Route::get('/get-wishlist-property','GetWishListProperty');
-    //     Route::get('/remove-from-wishlist/{id}','RemoveFromWishlist');
-    // });
+    Route::controller(CompareController::class)->group(function(){
+        Route::get('/user/compare','UserCompare')->name('user.compare');
+        Route::get('/get-compare-property','GetCompareProperty');
+        Route::get('/remove-from-wishlist/{id}','RemoveFromWishlist');
+    });
 });
 
 require __DIR__.'/auth.php';

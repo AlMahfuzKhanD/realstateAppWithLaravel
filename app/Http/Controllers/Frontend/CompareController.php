@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\User;
 use App\Models\Compare;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,4 +27,15 @@ class CompareController extends Controller
             return response()->json(['error'=>'Please Login first!!']);
         }
     } // end of method
+
+    public function UserCompare(){
+        return view('frontend.dashboard.compare');
+    }
+
+    public function GetCompareProperty(){
+        $compare = Compare::with('property')->where('user_id',Auth::id())->latest()->get();
+        return response()->json([
+            'compare' => $compare
+        ]);
+    } // end of GetWishListProperty method
 }
