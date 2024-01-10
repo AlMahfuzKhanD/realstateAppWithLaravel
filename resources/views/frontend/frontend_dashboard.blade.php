@@ -184,14 +184,48 @@
                                         <div class="other-info-box clearfix">
                                             <ul class="other-option pull-right clearfix">
                                                 <li>
-                                                    <a href="property-details.html"><i class="icon-13"></i></a>
+                                                    <a type="submit" class="text-body" id="${value.id}" onclick="wishListRemove(this.id)"><i class="fa fa-trash"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </div>`
+                            </div>`;
                     });
+                    $('#wishlist').html(rows);
+                }
+            });
+        }
+        wishlist();
+
+        // remove from wishlist
+        function wishListRemove(id){
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "/remove-from-wishlist/"+id,
+                success:function(data){
+                    wishlist();
+                    const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+
+                            showConfirmButton: false,
+                            timer: 3000,
+                        });
+                        if ($.isEmptyObject(data.error)) {
+                            Toast.fire({
+                                type: "success",
+                                icon: "success",
+                                title: data.success,
+                            });
+                        } else {
+                            Toast.fire({
+                                type: "error",
+                                icon: "error",
+                                title: data.error,
+                            });
+                        }
                 }
             });
         }
