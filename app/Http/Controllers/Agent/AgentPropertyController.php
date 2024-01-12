@@ -12,6 +12,7 @@ use App\Models\MultiImage;
 use App\Models\PackagePlan;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
+use App\Models\PropertyMessage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -592,6 +593,14 @@ class AgentPropertyController extends Controller
         ]);
         return $pdf->download('package_history_invoice.pdf');
     } // end method
+
+    public function AgentPropertyMessage(){
+        $user_id = Auth::user()->id;
+        $userMessageData = PropertyMessage::where('agent_id',$user_id)->get();
+        return view('agent.message.all_message',compact('userMessageData'));
+    } // end method AgentPropertyMessage
+
+    
 
 
 }
