@@ -25,7 +25,7 @@
                       <a class="nav-link d-flex align-items-center" href="../email/inbox.html">
                         <i data-feather="inbox" class="icon-lg me-2"></i>
                         Inbox
-                        <span class="badge bg-danger fw-bolder ms-auto">2
+                        <span class="badge bg-danger fw-bolder ms-auto">{{ count($userMessageData) }}
                       </a>
                     </li>
                     
@@ -60,7 +60,7 @@
                       <div class="d-flex align-items-end mb-2 mb-md-0">
                         <i data-feather="inbox" class="text-muted me-2"></i>
                         <h4 class="me-1">Inbox</h4>
-                        <span class="text-muted">(2 new messages)</span>
+                        <span class="text-muted">({{ count($userMessageData) }} new message)</span>
                       </div>
                     </div>
                     <div class="col-lg-6">
