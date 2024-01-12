@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('msg_name')->nullable();
             $table->string('msg_email')->nullable();
             $table->string('msg_phone')->nullable();
-            $table->string('message')->nullable();
+            $table->text('message')->nullable();
             $table->timestamps();
         });
     }
