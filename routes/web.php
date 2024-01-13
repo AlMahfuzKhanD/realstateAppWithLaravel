@@ -150,6 +150,7 @@ Route::middleware(['auth','role:agent'])->group(function(){
         Route::get('/details/agent/property/{id}','DetailsAgentProperty')->name('details.agent.property');
         Route::get('/delete/agent/property/{id}','DeleteAgentProperty')->name('delete.agent.property');
         Route::get('/agent/property/message','AgentPropertyMessage')->name('agent.property.message');
+        Route::get('/agent/message/details/{id}','AgentMessageDetails')->name('agent.message.details');
     });
 
     // Agent buy package

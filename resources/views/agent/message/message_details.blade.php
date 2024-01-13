@@ -75,20 +75,47 @@
                 <div class="email-list">
 
                   <!-- email list item -->
-                  @foreach ($userMessageData as $message)
-                  <div class="email-list-item email-list-item--unread">
-                    
-                    <a href="{{ route('agent.message.details',$message->id) }}" class="email-list-detail">
-                      <div class="content">
-                        <span class="from">{{ $message->user->name??'' }}</span>
-                        <p class="msg">{{ $message->message??'' }}</p>
-                      </div>
-                      <span class="date">
-                        {{  $message->created_at->format('l M d') }}
-                      </span>
-                    </a>
-                  </div>
-                  @endforeach
+                  <div class="table-responsive">
+                    <table class="table">
+                        
+                        <tbody>
+                            <tr>
+                                <th>Customer Name</th>
+                                <td>{{ $messageDetails['user']['name']??'' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Customer Email</th>
+                                <td>{{ $messageDetails['user']['email']??'' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Customer Phone</th>
+                                <td>{{ $messageDetails['user']['phone']??'' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Property Name</th>
+                                <td>{{ $messageDetails['property']['property_name']??'' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Property Code</th>
+                                <td>{{ $messageDetails['property']['property_code']??'' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Property Status</th>
+                                <td>{{ $messageDetails['property']['property_status']??'' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Message</th>
+                                <td>{{ $messageDetails->message??'' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sending Time</th>
+                                <td>{{ $messageDetails->created_at->format('l M d')??'' }}</td>
+                            </tr>
+                            
+                            
+                        </tbody>
+                    </table>
+            </div>
                   
 
                   
