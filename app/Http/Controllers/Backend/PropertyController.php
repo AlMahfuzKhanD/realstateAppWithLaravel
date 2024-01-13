@@ -12,8 +12,10 @@ use App\Models\MultiImage;
 use App\Models\PackagePlan;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
+use App\Models\PropertyMessage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -500,6 +502,19 @@ class PropertyController extends Controller
         ]);
         return $pdf->download('package_invoice.pdf');
     } // end method
+
+    public function AdminPropertyMessage(){
+        $user_id = Auth::user()->id;
+        $userMessageData = PropertyMessage::get();
+        return view('backend.message.all_message',compact('userMessageData'));
+    } // end method AdminPropertyMessage
+
+    public function AdminMessageDetails($id){
+        $user_id = Auth::user()->id;
+        $userMessageData = PropertyMessage::where('agent_id',$user_id)->get();
+        $messageDetails = PropertyMessage::findOrFail($id);
+        return view('backend.message.message_details',compact('userMessageData','messageDetails'));
+    } // end method AdminMessageDetails
 
 
 }
