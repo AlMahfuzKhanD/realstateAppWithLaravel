@@ -63,6 +63,7 @@ class IndexController extends Controller
     public function AgentDetails($id){
         $agent = User::findOrfail($id);
         $property = Property::where('agent_id',$id)->get();
-        return view('frontend.agent.agent_details',compact('agent','property'));
+        $featured = $property->where('featured',1)->take(3)->all();
+        return view('frontend.agent.agent_details',compact('agent','property','featured'));
     }
 }
