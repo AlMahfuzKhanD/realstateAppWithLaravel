@@ -104,7 +104,7 @@
                         </div>
                         <ul class="category-list clearfix">
                             <li><a href="{{ route('rent.property') }}">For Rent <span>({{ $rent_count??0 }})</span></a></li>
-                            <li><a href="agents-details.html">For Buy <span>({{ $buy_count??0 }})</span></a></li>
+                            <li><a href="{{ route('buy.property') }}">For Buy <span>({{ $buy_count??0 }})</span></a></li>
                         </ul>
                     </div>
                 </div>

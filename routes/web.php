@@ -177,4 +177,5 @@ Route::post('/property/message',[IndexController::class,'PropertyMessage'])->nam
 Route::get('/agent/details/{id}',[IndexController::class,'AgentDetails'])->name('agent.details');
 Route::get('/rent/property',[IndexController::class,'RentProperty'])->name('rent.property');
 Route::get('/buy/property',[IndexController::class,'BuyProperty'])->name('buy.property');
+Route::get('/property/type/{id}',[IndexController::class,'PropertyType'])->name('property.type');
 

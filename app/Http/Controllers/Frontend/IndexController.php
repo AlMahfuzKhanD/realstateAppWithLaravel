@@ -86,4 +86,12 @@ class IndexController extends Controller
         $buy_count = $property_data->where('property_status','buy')->count();
         return view('frontend.property.buy_property',compact('property','rent_count','buy_count'));
     }
+
+    public function PropertyType($id){
+        $property_data = Property::get();
+        $property = $property_data->where('status',1)->where('ptype_id',$id)->all();
+        $rent_count = $property_data->where('property_status','rent')->count();
+        $buy_count = $property_data->where('property_status','buy')->count();
+        return view('frontend.property.property_type',compact('property','rent_count','buy_count'));
+    }
 }
