@@ -174,5 +174,5 @@ Route::get('/property/details/{id}/{slug}',[IndexController::class,'PropertyDeta
 Route::post('/add-to-wishList/{property_id}',[WishlistController::class,'AddToWishList']);
 Route::post('/add-to-compare/{property_id}',[CompareController::class,'AddToCompare']);
 Route::post('/property/message',[IndexController::class,'PropertyMessage'])->name('property.message');
-Route::get('/agent/details',[IndexController::class,'AgentDetails'])->name('agent.details');
+Route::get('/agent/details/{id}',[IndexController::class,'AgentDetails'])->name('agent.details');
 
