@@ -62,8 +62,27 @@ class IndexController extends Controller
 
     public function AgentDetails($id){
         $agent = User::findOrfail($id);
-        $property = Property::where('agent_id',$id)->get();
-        $featured = $property->where('featured',1)->take(3)->all();
-        return view('frontend.agent.agent_details',compact('agent','property','featured'));
+        $property_data = Property::get();
+        $property = $property_data->where('agent_id',$id)->all();
+        $featured = $property_data->where('agent_id',$id)->where('featured',1)->take(3)->all();
+        $rent_count = $property_data->where('property_status','rent')->count();
+        $buy_count = $property_data->where('property_status','buy')->count();
+        return view('frontend.agent.agent_details',compact('agent','property','featured','rent_count','buy_count'));
+    }
+
+    public function RentProperty(){
+        $property_data = Property::get();
+        $property = $property_data->where('status',1)->where('property_status','rent')->all();
+        $rent_count = $property_data->where('property_status','rent')->count();
+        $buy_count = $property_data->where('property_status','buy')->count();
+        return view('frontend.property.rent_property',compact('property'));
+    }
+
+    public function BuyProperty(){
+        $property_data = Property::get();
+        $property = $property_data->where('status',1)->where('property_status','buy')->all();
+        $rent_count = $property_data->where('property_status','rent')->count();
+        $buy_count = $property_data->where('property_status','buy')->count();
+        return view('frontend.property.buy_property',compact('property'));
     }
 }
