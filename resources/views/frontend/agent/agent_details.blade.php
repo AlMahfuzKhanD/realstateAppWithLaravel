@@ -133,23 +133,49 @@
                                     <h5>Contact To {{ $agent->name??'' }}</h5>
                                 </div>
                                 <div class="form-inner">
-                                    <form action="contact.html" method="post" class="default-form">
+                                    @auth
+                                    <form action="{{ route('property.message') }}" method="post" class="default-form">
+                                        @csrf
+                                        
+                                        <input type="hidden" name="agent_id" value="{{ $agent->id }}">
+                                        
                                         <div class="form-group">
-                                            <input type="text" name="name" placeholder="Your Name" required="">
+                                            <input type="text" name="msg_name" placeholder="Your name" value="{{ $agent->name??'' }}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" name="email" placeholder="Email Address" required="">
+                                            <input type="email" name="msg_email" placeholder="Your Email" value="{{ $agent->email??'' }}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="tel" name="phone" placeholder="Phone" required="">
+                                            <input type="text" name="msg_phone" placeholder="Phone" value="{{ $agent->phone??'' }}">
                                         </div>
                                         <div class="form-group">
-                                            <textarea name="message" placeholder="Your Message"></textarea>
+                                            <textarea name="message" placeholder="Message"></textarea>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group message-btn">
                                             <button type="submit" class="theme-btn btn-one">Send Message</button>
                                         </div>
                                     </form>
+                                    @else
+                                    <form action="{{ route('property.message') }}" method="post" class="default-form">
+                                        @csrf
+                                        <input type="hidden" name="agent_id" value="{{ $agent->id }}">
+                                        <div class="form-group">
+                                            <input type="text" name="msg_name" placeholder="Your name" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="msg_email" placeholder="Your Email" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="msg_phone" placeholder="Phone" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea name="message" placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="form-group message-btn">
+                                            <button type="submit" class="theme-btn btn-one">Send Message</button>
+                                        </div>
+                                    </form>
+                                    @endauth
                                 </div>
                             </div>
                             <div class="category-widget sidebar-widget">
@@ -171,7 +197,7 @@
                                     <div class="feature-block-one">
                                         <div class="inner-box">
                                             <div class="image-box">
-                                                <figure class="image"><img src="{{ asset($feature->property_thumbnail) }}" alt=""></figure>
+                                                <figure class="image"><img src="{{ asset($feature->property_thumbnail) }}" alt="" style="width:370px;height:250px;"></figure>
                                                 <div class="batch"><i class="icon-11"></i></div>
                                                 <span class="category">Featured</span>
                                             </div>
