@@ -67,7 +67,6 @@
                                 </li>
                                 <li>
                                     <a href="{{ url('/') }}"><span>About Us</span></a>
-                                    
                                 </li>
                                 <li class="dropdown">
                                     <a href="index.html"><span>Property</span></a>
