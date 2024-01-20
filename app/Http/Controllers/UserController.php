@@ -14,9 +14,11 @@ class UserController extends Controller
 {
     public function index(){
         $property_type = PropertyType::latest()->limit(5)->get();
-        $properties = Property::where('status',1)->where('featured',1)->limit(3)->get();
+        $properties = Property::get();
+        $feature_properties = $properties->where('status',1)->where('featured',1)->take(3)->all();
+        $hot_properties = $properties->where('status',1)->where('hot',1)->take(3)->all();
         $agents = User::where('status','active')->where('role','agent')->orderBy('id','DESC')->limit(5)->get();
-        return view('frontend.index',compact('property_type','properties','agents'));
+        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties'));
     } // end of index
 
     public function UserProfile(){
