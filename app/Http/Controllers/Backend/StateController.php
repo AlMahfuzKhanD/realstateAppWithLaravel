@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Models\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class StateController extends Controller
 {
@@ -22,20 +25,47 @@ class StateController extends Controller
 
         // Validation
         $request->validate([
-            'state_name' => 'required|unique:property_states|max:200',
-            'state_icon' => 'required',
+            'state_name' => 'required|unique:states|max:200',
+            'state_image' => 'required',
         ]);
 
-        State::insert([
-            'state_name' => $request->state_name,
-            'state_icon' => $request->state_icon
-        ]);
+        
+        DB::beginTransaction();
 
         $notification = array(
-            'message' => 'Property state Created successfully!!',
-            'alert-state' => 'success'
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
         );
-        return redirect()->route('all.state')->with($notification);
+        try {
+            if($request->file('state_image')){
+                $selected_image = $request->file('state_image');
+                $manager = new ImageManager(new Driver());
+                $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+                $img = $manager->read($selected_image);
+                $img = $img->resize(370,250);
+                $img->toJpeg(80)->save(base_path('public/upload/property/state/'.$name_gen));
+                $save_url = 'upload/property/state/'.$name_gen;
+            }
+    
+            State::insert([
+                'state_name' => $request->state_name,
+                'state_imag' => $save_url
+            ]);
+    
+            $notification = array(
+                'message' => 'State Created successfully!!',
+                'alert-state' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.state')->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            return back()->with($notification);
+            // something went wrong
+        }
 
     } //end method
 

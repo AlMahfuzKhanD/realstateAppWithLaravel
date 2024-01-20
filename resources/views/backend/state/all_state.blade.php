@@ -18,8 +18,8 @@
                     <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Type Name</th>
-                        <th>Type Icon</th>
+                        <th>State name</th>
+                        <th>State Image</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -27,8 +27,9 @@
                         @foreach ($state as $key => $item)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                            <td><img src="{{ (!empty($item->state_imag)) ? $item->state_imag : url('upload/no_image.jpg') }}" alt="" style="width: 70px; height:40px;"></td>
                             <td>{{ $item->state_name }}</td>
+                            <td><img src="{{ (!empty($item->state_imag)) ? $item->state_imag : url('upload/no_image.jpg') }}" alt="" style="width: 70px; height:40px;"></td>
+                            
                             <td>
                                 <a href="{{ route('edit.type',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
                                 <a href="{{ route('delete.type',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
