@@ -72,7 +72,7 @@ class IndexController extends Controller
 
     public function RentProperty(){
         $property_data = Property::get();
-        $property = $property_data->where('status',1)->where('property_status','rent')->all();
+        $property = Property::where('status',1)->where('property_status','rent')->paginate(2);
         $rent_count = $property_data->where('property_status','rent')->count();
         $buy_count = $property_data->where('property_status','buy')->count();
         return view('frontend.property.rent_property',compact('property','rent_count','buy_count'));
