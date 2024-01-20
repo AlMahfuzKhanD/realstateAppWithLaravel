@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>{{ $item->state_name }}</td>
-                            <td><img src="{{ (!empty($item->state_imag)) ? $item->state_imag : url('upload/no_image.jpg') }}" alt="" style="width: 70px; height:40px;"></td>
+                            <td><img src="{{ (!empty($item->state_imag)) ? url('/'.$item->state_imag) : url('upload/no_image.jpg') }}" alt="" style="width: 70px; height:40px;"></td>
                             
                             <td>
                                 <a href="{{ route('edit.type',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
