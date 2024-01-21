@@ -120,7 +120,7 @@
                                     <td>Property Aminities</td>
                                     <td> <select class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%" name="amenities_id[]" required>
                                         @foreach ($amenities as $amenity)
-                                        <option value="{{ $amenity->id }}" {{ (in_array($amenity->id,$property_aminity)) ? 'selected' : '' }}>{{ $amenity->amenities_name }}</option>
+                                        <option value="{{ $amenity->amenities_name }}" {{ (in_array($amenity->amenities_name,$property_aminity)) ? 'selected' : '' }}>{{ $amenity->amenities_name }}</option>
                                         @endforeach
                                     </select></td>
                                 </tr>
