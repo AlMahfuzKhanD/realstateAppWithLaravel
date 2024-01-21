@@ -135,7 +135,11 @@ class StateController extends Controller
     public function DeleteState($id){
 
         
-        State::findOrFail($id)->delete();
+        $state = State::findOrFail($id);
+        $img = $state->state_imag;
+        unlink($img);
+        
+        $state->delete();
 
         $notification = array(
             'message' => 'State Deleted successfully!!',
