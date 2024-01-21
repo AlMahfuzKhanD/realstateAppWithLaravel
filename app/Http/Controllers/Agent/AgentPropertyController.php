@@ -172,8 +172,9 @@ class AgentPropertyController extends Controller
         $facilities = Facility::where('property_id',$id)->get();
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
+        $states = State::latest()->get();
 
-        return view('agent.property.edit_property',compact('property','propertyType','amenities','property_aminity','multi_image','facilities'));
+        return view('agent.property.edit_property',compact('property','propertyType','amenities','property_aminity','multi_image','facilities','states'));
 
     } // end of EditProperty
 
@@ -208,7 +209,7 @@ class AgentPropertyController extends Controller
                 'property_video' => $request->property_video,
                 'address' => $request->address,
                 'city' => $request->city,
-                'state' => $request->state,
+                'state' => $request->state_id,
                 'postal_code' => $request->postal_code,
                 'neighborhood' => $request->neighborhood,
                 'latitude' => $request->latitude,
