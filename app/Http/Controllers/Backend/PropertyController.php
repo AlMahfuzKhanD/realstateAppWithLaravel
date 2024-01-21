@@ -158,9 +158,10 @@ class PropertyController extends Controller
         $facilities = Facility::where('property_id',$id)->get();
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
+        $states = State::latest()->get();
         $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
 
-        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_aminity','multi_image','facilities'));
+        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_aminity','multi_image','facilities','states'));
 
     } // end of EditProperty
 
