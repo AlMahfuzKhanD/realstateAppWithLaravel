@@ -61,7 +61,6 @@ class StateController extends Controller
 
             // all good
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
             return back()->with($notification);
             // something went wrong
@@ -118,8 +117,13 @@ class StateController extends Controller
 
             // all good
         } catch (\Exception $e) {
-            dd($e);
+            
             DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
             return redirect()->back()->with($notification);
             // something went wrong
         }
