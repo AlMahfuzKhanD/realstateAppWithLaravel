@@ -132,13 +132,13 @@ class StateController extends Controller
 
     } // end of UpdatePropertyThumbnail
 
-    public function Deletestate($id){
+    public function DeleteState($id){
 
         
         State::findOrFail($id)->delete();
 
         $notification = array(
-            'message' => 'Property state Deleted successfully!!',
+            'message' => 'State Deleted successfully!!',
             'alert-state' => 'success'
         );
         return redirect()->back()->with($notification);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use DB;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\State;
 use App\Models\Facility;
 use App\Models\Property;
 use App\Models\Amenities;
@@ -30,8 +31,9 @@ class PropertyController extends Controller
     public function AddProperty(){
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
+        $states = State::latest()->get();
         $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
-        return view('backend.property.add_property',compact('propertyType','amenities','activeAgent'));
+        return view('backend.property.add_property',compact('propertyType','amenities','activeAgent','states'));
     } // end of AddProperty
 
     public function StoreProperty(Request $request){
@@ -80,7 +82,7 @@ class PropertyController extends Controller
                 'property_video' => $request->property_video,
                 'address' => $request->address,
                 'city' => $request->city,
-                'state' => $request->state,
+                'state' => $request->state_id,
                 'postal_code' => $request->postal_code,
                 'neighborhood' => $request->neighborhood,
                 'latitude' => $request->latitude,
