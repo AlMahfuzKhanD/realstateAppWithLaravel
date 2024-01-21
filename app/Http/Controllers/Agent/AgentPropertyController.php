@@ -438,7 +438,6 @@ class AgentPropertyController extends Controller
         $facilities = Facility::where('property_id',$id)->get();
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
-
         return view('agent.property.details_property',compact('property','propertyType','amenities','property_aminity','multi_image','facilities'));
     } // end of DetailsAgentProperty
 
