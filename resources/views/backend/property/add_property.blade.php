@@ -98,16 +98,14 @@
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <div class="mb-3">
-                                                <label class="form-label">State</label>
-                                                <select class="form-select" name="state_id"  required>
-                                                    <option selected="" disabled="">Select State</option>
-                                                    @foreach ($states as $state)
-                                                    <option value="{{ $state->id }}">{{ $state->state_name }}</option>
-                                                    @endforeach
-                                                    
-                                                </select>
-                                            </div>
+                                            <label class="form-label">State</label>
+                                            <select class="form-select" name="state_id"  required>
+                                                <option selected="" disabled="">Select State</option>
+                                                @foreach ($states as $state)
+                                                <option value="{{ $state->id }}">{{ $state->state_name }}</option>
+                                                @endforeach
+                                                
+                                            </select>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">

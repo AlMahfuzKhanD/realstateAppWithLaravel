@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agent;
 use DB;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\State;
 use App\Models\Facility;
 use App\Models\Property;
 use App\Models\Amenities;
@@ -34,10 +35,11 @@ class AgentPropertyController extends Controller
         $user_id = Auth::user()->id;
         $user_info = User::where('role','agent')->where('id',$user_id)->first();
         $user_credit = $user_info->credit;
+        $states = State::latest()->get();
         if($user_credit == 1 || $user_credit == 7) {
             return redirect()->route('buy.package');
         }else{
-            return view('agent.property.add_property',compact('propertyType','amenities'));
+            return view('agent.property.add_property',compact('propertyType','amenities','states'));
         }
         
     } // end of AddAgentProperty
@@ -90,7 +92,7 @@ class AgentPropertyController extends Controller
                 'property_video' => $request->property_video,
                 'address' => $request->address,
                 'city' => $request->city,
-                'state' => $request->state,
+                'state' => $request->state_id,
                 'postal_code' => $request->postal_code,
                 'neighborhood' => $request->neighborhood,
                 'latitude' => $request->latitude,
