@@ -196,7 +196,7 @@ class PropertyController extends Controller
                 'property_video' => $request->property_video,
                 'address' => $request->address,
                 'city' => $request->city,
-                'state' => $request->state,
+                'state' => $request->state_id,
                 'postal_code' => $request->postal_code,
                 'neighborhood' => $request->neighborhood,
                 'latitude' => $request->latitude,
