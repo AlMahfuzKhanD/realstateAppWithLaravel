@@ -188,4 +188,5 @@ Route::get('/agent/details/{id}',[IndexController::class,'AgentDetails'])->name(
 Route::get('/rent/property',[IndexController::class,'RentProperty'])->name('rent.property');
 Route::get('/buy/property',[IndexController::class,'BuyProperty'])->name('buy.property');
 Route::get('/property/type/{id}',[IndexController::class,'PropertyType'])->name('property.type');
+Route::get('/state/details/{id}',[IndexController::class,'StateDetails'])->name('state.details');
 

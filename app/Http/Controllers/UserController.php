@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Middleware\Role;
+use App\Models\State;
 use App\Models\Property;
 use App\Models\PropertyType;
+use Illuminate\Http\Request;
+use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,7 +19,20 @@ class UserController extends Controller
         $feature_properties = $properties->where('status',1)->where('featured',1)->take(3)->all();
         $hot_properties = $properties->where('status',1)->where('hot',1)->take(3)->all();
         $agents = User::where('status','active')->where('role','agent')->orderBy('id','DESC')->limit(5)->get();
-        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties'));
+        // $skip_states = State::get();
+        // $skip_states = collect($skip_states)->map(function(){
+
+        // });
+        $skip_state_0 = State::skip(0)->first();
+        $property_0 = $properties->where('state',$skip_state_0->id)->all();
+        $skip_state_1 = State::skip(1)->first();
+        $property_1 =$properties->where('state',$skip_state_1->id)->all();
+         $skip_state_2 = State::skip(2)->first();
+        $property_2 =$properties->where('state',$skip_state_2->id)->all();
+        $skip_state_3 = State::skip(3)->first();
+        $property_3 = $properties->where('state',$skip_state_3->id)->all();
+        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','skip_state_0','property_0','skip_state_1','skip_state_2','skip_state_3','property_1','property_2','property_3'));
+        // return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','skip_states'));
     } // end of index
 
     public function UserProfile(){

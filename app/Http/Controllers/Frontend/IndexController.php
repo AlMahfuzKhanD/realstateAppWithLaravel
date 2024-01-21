@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\State;
 use App\Models\Facility;
 use App\Models\Property;
 use App\Models\MultiImage;
@@ -93,5 +94,11 @@ class IndexController extends Controller
         $rent_count = $property_data->where('property_status','rent')->count();
         $buy_count = $property_data->where('property_status','buy')->count();
         return view('frontend.property.property_type',compact('property','rent_count','buy_count'));
+    }
+
+    public function StateDetails($id){
+        $property = Property::where('status',1)->where('state',$id)->get();
+        $state_data = State::where('id',$id)->first();
+        return view('frontend.property.state_property',compact('property','state_data'));
     }
 }
