@@ -77,26 +77,56 @@ class StateController extends Controller
 
     } //end method
 
-    public function Updatestate(Request $request){
-
-        // Validation
-        $request->validate([
-            'state_name' => 'required|unique:property_states|max:200',
-            'state_icon' => 'required',
-        ]);
-        
-        State::findOrFail($request->state_id)->update([
-            'state_name' => $request->state_name,
-            'state_icon' => $request->state_icon
-        ]);
-
+    public function UpdateState(Request $request){
+       
+        $state_id = $request->state_id;
+        $old_state_image = $request->old_state_image;
         $notification = array(
-            'message' => 'Property state Updated successfully!!',
-            'alert-state' => 'success'
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
         );
-        return redirect()->route('all.state')->with($notification);
+        DB::beginTransaction();
+        try {
 
-    } //end method
+            if($request->file('state_image')){
+
+                $selected_image = $request->file('state_image');
+                $manager = new ImageManager(new Driver());
+                $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+                $img = $manager->read($selected_image);
+                $img = $img->resize(370,250);
+                $img->toJpeg(80)->save(base_path('public/upload/property/state/'.$name_gen));
+                $save_url = 'upload/property/state/'.$name_gen;
+            }
+
+            if(file_exists($old_state_image)){
+                unlink($old_state_image);
+            }
+
+            State::findOrFail($state_id)->update([
+                'state_name' => $request->state_name,
+                'state_imag' => $save_url
+            ]);
+
+
+            $notification = array(
+                'message' => 'State Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.state')->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdatePropertyThumbnail
 
     public function Deletestate($id){
 
