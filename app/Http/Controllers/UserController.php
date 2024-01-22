@@ -31,6 +31,7 @@ class UserController extends Controller
         $property_2 =$properties->where('state',$skip_state_2->id)->all();
         $skip_state_3 = State::skip(3)->first();
         $property_3 = $properties->where('state',$skip_state_3->id)->all();
+        
         return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','skip_state_0','property_0','skip_state_1','skip_state_2','skip_state_3','property_1','property_2','property_3'));
         // return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','skip_states'));
     } // end of index
