@@ -19,21 +19,15 @@ class UserController extends Controller
         $feature_properties = $properties->where('status',1)->where('featured',1)->take(3)->all();
         $hot_properties = $properties->where('status',1)->where('hot',1)->take(3)->all();
         $agents = User::where('status','active')->where('role','agent')->orderBy('id','DESC')->limit(5)->get();
-        // $skip_states = State::get();
-        // $skip_states = collect($skip_states)->map(function(){
+        $states_data = State::get()->keyBy('id');
+        $state_count = 0;
+        $states = collect($properties)->map(function($q)use($states_data){
+             $q->state_name = $states_data[$q->state]['state_name'];
+             $q->state_image = $states_data[$q->state]['state_imag'];
+            return $q;
+        })->groupBy('state');
 
-        // });
-        $skip_state_0 = State::skip(0)->first();
-        $property_0 = $properties->where('state',$skip_state_0->id)->all();
-        $skip_state_1 = State::skip(1)->first();
-        $property_1 =$properties->where('state',$skip_state_1->id)->all();
-         $skip_state_2 = State::skip(2)->first();
-        $property_2 =$properties->where('state',$skip_state_2->id)->all();
-        $skip_state_3 = State::skip(3)->first();
-        $property_3 = $properties->where('state',$skip_state_3->id)->all();
-        
-        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','skip_state_0','property_0','skip_state_1','skip_state_2','skip_state_3','property_1','property_2','property_3'));
-        // return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','skip_states'));
+        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','states'));
     } // end of index
 
     public function UserProfile(){
