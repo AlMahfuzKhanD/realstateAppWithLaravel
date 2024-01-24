@@ -14,20 +14,21 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(){
-        $property_type = PropertyType::latest()->limit(5)->get();
+        $p_type = PropertyType::get();
+        $property_type = $p_type->take(5);
         $properties = Property::get();
         $feature_properties = $properties->where('status',1)->where('featured',1)->take(3)->all();
         $hot_properties = $properties->where('status',1)->where('hot',1)->take(3)->all();
         $agents = User::where('status','active')->where('role','agent')->orderBy('id','DESC')->limit(5)->get();
-        $states_data = State::get()->keyBy('id');
+        $states = State::get()->keyBy('id');
         $state_count = 0;
-        $states = collect($properties)->map(function($q)use($states_data){
-             $q->state_name = $states_data[$q->state]['state_name'];
-             $q->state_image = $states_data[$q->state]['state_imag'];
+        $hot_places = collect($properties)->map(function($q)use($states){
+             $q->state_name = $states[$q->state]['state_name'];
+             $q->state_image = $states[$q->state]['state_imag'];
             return $q;
         })->groupBy('state');
 
-        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','states'));
+        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','hot_places','states','p_type'));
     } // end of index
 
     public function UserProfile(){
