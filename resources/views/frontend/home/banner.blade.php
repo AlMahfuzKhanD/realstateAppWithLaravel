@@ -36,9 +36,9 @@
                                                         <select class="wide">
                                                             <option data-display="Input location">Input location</option>
                                                             <option value="1">New York</option>
-                                                            <option value="2">California</option>
-                                                            <option value="3">London</option>
-                                                            <option value="4">Maxico</option>
+                                                            @foreach ($collection as $item)
+                                                                
+                                                            @endforeach
                                                             
                                                         </select>
                                                     </div>

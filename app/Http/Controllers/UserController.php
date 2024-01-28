@@ -20,7 +20,7 @@ class UserController extends Controller
         $feature_properties = $properties->where('status',1)->where('featured',1)->take(3)->all();
         $hot_properties = $properties->where('status',1)->where('hot',1)->take(3)->all();
         $agents = User::where('status','active')->where('role','agent')->orderBy('id','DESC')->limit(5)->get();
-        $states = State::get()->keyBy('id');
+        $states = State::latest()->get()->keyBy('id');
         $state_count = 0;
         $hot_places = collect($properties)->map(function($q)use($states){
              $q->state_name = $states[$q->state]['state_name'];
