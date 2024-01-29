@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\State;
 use App\Models\Property;
+use App\Models\Testimonial;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Role;
@@ -28,7 +29,9 @@ class UserController extends Controller
             return $q;
         })->groupBy('state');
 
-        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','hot_places','states','p_type'));
+        $testimonials = Testimonial::latest()->get();
+
+        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','hot_places','states','p_type','testimonials'));
     } // end of index
 
     public function UserProfile(){

@@ -46,7 +46,7 @@ class TestimonialController extends Controller
     
             Testimonial::insert([
                 'name' => $request->name,
-                'name' => $request->message,
+                'message' => $request->message,
                 'position' => $request->position,
                 'image' => $request->image,
                 'image' => $save_url
