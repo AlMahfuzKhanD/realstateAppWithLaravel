@@ -19,10 +19,10 @@ class IndexController extends Controller
         $userData = '';
         if(Auth::check()){
             $user_id = Auth::user()->id;
-            $userData = User::findOrFail($id);
+            $userData = User::findOrFail($user_id);
         }
        
-        $property = Property::findOrFail($id)->first();
+        $property = Property::where('id',$id)->first(); 
         $amenities = $property->amenities_id;
         $amenities = explode(',',$amenities);
         $property_images = MultiImage::where('property_id',$id)->get();

@@ -87,7 +87,7 @@
                                     <li>Property ID: <span>{{ $property->property_code??'' }}</span></li>
                                     <li>Rooms: <span>{{ $property->bedrooms??'' }}</span></li>
                                     <li>Property Price: <span>${{ $property->lowest_price??'' }}</span></li>
-                                    <li>Property Type: <span>{{ $property->type->name??'' }}</span></li>
+                                    <li>Property Type: <span>{{ $property->type->type_name??'' }}</span></li>
                                     <li>Bathrooms: <span>{{ $property->bathrooms??0 }}</span></li>
                                     <li>Property Status: <span>For {{ $property->property_status??'' }}</span></li>
                                     <li>Property Size: <span>{{ $property->property_size??'' }} Sq Ft</span></li>
