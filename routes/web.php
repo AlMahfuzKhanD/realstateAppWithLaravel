@@ -191,4 +191,5 @@ Route::get('/property/type/{id}',[IndexController::class,'PropertyType'])->name(
 Route::get('/state/details/{id}',[IndexController::class,'StateDetails'])->name('state.details');
 Route::post('/buy/property/search',[IndexController::class,'BuyPropertySearch'])->name('buy.property.search');
 Route::post('/rent/property/search',[IndexController::class,'RentPropertySearch'])->name('rent.property.search');
+Route::post('/all/property/search',[IndexController::class,'AllPropertySearch'])->name('all.property.search');
 

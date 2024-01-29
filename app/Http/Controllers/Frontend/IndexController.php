@@ -8,6 +8,7 @@ use App\Models\State;
 use App\Models\Facility;
 use App\Models\Property;
 use App\Models\MultiImage;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Models\PropertyMessage;
 use App\Http\Controllers\Controller;
@@ -72,20 +73,24 @@ class IndexController extends Controller
     }
 
     public function RentProperty(){
+        $states = State::latest()->get();
+        $p_type = PropertyType::latest()->get();
         $property_data = Property::get();
         $property = Property::where('status',1)->where('property_status','rent')->paginate(2);
         $rent_count = $property_data->where('property_status','rent')->count();
         $buy_count = $property_data->where('property_status','buy')->count();
-        return view('frontend.property.rent_property',compact('property','rent_count','buy_count'));
+        return view('frontend.property.rent_property',compact('property','rent_count','buy_count','states','p_type'));
     }
 
     public function BuyProperty(){
+        $states = State::latest()->get();
+        $p_type = PropertyType::latest()->get();
         $property_data = Property::get();
         
         $property = $property_data->where('status',1)->where('property_status','buy')->all();
         $rent_count = $property_data->where('property_status','rent')->count();
         $buy_count = $property_data->where('property_status','buy')->count();
-        return view('frontend.property.buy_property',compact('property','rent_count','buy_count'));
+        return view('frontend.property.buy_property',compact('property','rent_count','buy_count','states','p_type'));
     }
 
     public function PropertyType($id){
@@ -129,6 +134,29 @@ class IndexController extends Controller
 
         $property = Property::where('property_name','like','%' . $item . '%')
         ->where('property_status','rent')
+        ->with('type','pstate')
+        ->whereHas('pstate', function($q) use($sstate){
+            $q->where('state_name','like','%' . $sstate . '%');
+        })
+        ->whereHas('type', function($q) use($stype){
+            $q->where('type_name','like','%' . $stype . '%');
+        })->get();
+
+        return view('frontend.property.property_search',compact('property'));
+    }
+
+    public function AllPropertySearch(Request $request){
+
+        $property_status = $request->property_status;
+        $bedrooms = $request->bedrooms;
+        $bathrooms = $request->bathrooms;
+        $sstate = $request->state;
+        $stype = $request->ptype_id;
+
+        $property = Property::where('status',1)
+        ->where('bedrooms',$bedrooms)
+        ->where('bathrooms',$bathrooms)
+        ->where('property_status',$property_status)
         ->with('type','pstate')
         ->whereHas('pstate', function($q) use($sstate){
             $q->where('state_name','like','%' . $sstate . '%');
