@@ -30,10 +30,10 @@
                                         @endif
                                         
                                     </div>
-                                    <div class="buy-btn pull-right"><a href="property-details.html">For {{ $item->property_status??'' }}</a></div>
+                                    <div class="buy-btn pull-right"><a href="{{ $item->property_status == 'rent' ?  route('rent.property') : route('buy.property')  }}">For {{ $item->property_status??'' }}</a></div>
                                 </div>
                                 <div class="title-text">
-                                    <h4><a href="property-details.html">{{ $item->property_name??'' }}</a></h4>
+                                    <h4><a href="{{ url('property/details/'.$item->id.'/'.$item->property_slug) }}">{{ $item->property_name??'' }}</a></h4>
                                 </div>
                                 <div class="price-box clearfix">
                                     <div class="price-info pull-left">
