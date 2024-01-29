@@ -68,7 +68,7 @@ class StateController extends Controller
 
     } //end method
 
-    public function Editstate($id){
+    public function EditState($id){
 
         // Validation
         $state = State::findOrFail($id);

@@ -103,10 +103,10 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::controller(TestimonialController::class)->group(function(){
         Route::get('/all/testimonial','AllTestimonial')->name('all.testimonial');
         Route::get('/add/testimonial','AddTestimonial')->name('add.testimonial');
-        // Route::post('/store/type','StoreType')->name('store.type');
-        // Route::get('/edit/type/{id}','EditType')->name('edit.type');
-        // Route::post('/update/type','UpdateType')->name('update.type');
-        // Route::get('/delete/type/{id}','DeleteType')->name('delete.type');
+        Route::post('/store/testimonial','StoreTestimonial')->name('store.testimonial');
+        Route::get('/edit/testimonial/{id}','EditTestimonial')->name('edit.testimonial');
+        Route::post('/update/testimonial','UpdateTestimonial')->name('update.testimonial');
+        Route::get('/delete/testimonial/{id}','DeleteTestimonial')->name('delete.testimonial');
     });
     // Amenities All Route
     Route::controller(PropertyTypeController::class)->group(function(){

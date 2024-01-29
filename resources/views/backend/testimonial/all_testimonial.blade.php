@@ -3,7 +3,7 @@
 
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <a href="{{ route('add.state') }}" class="btn btn-inverse-info">Add State</a>
+            <a href="{{ route('add.testimonial') }}" class="btn btn-inverse-info">Add Testimonial</a>
         </ol>
     </nav>
 
@@ -29,12 +29,12 @@
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->positiom }}</td>
+                            <td>{{ $item->position }}</td>
                             <td><img src="{{ (!empty($item->image)) ? url('/'.$item->image) : url('upload/no_image.jpg') }}" alt="" style="width: 70px; height:40px;"></td>
                             
                             <td>
-                                <a href="{{ route('edit.state',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
-                                <a href="{{ route('delete.state',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
+                                <a href="{{ route('edit.testimonial',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
+                                <a href="{{ route('delete.testimonial',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
                             </td>
     
                         </tr>
