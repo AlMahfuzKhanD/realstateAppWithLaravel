@@ -102,9 +102,9 @@ class TestimonialController extends Controller
                 unlink($old_testimonial_image);
             }
 
-            State::findOrFail($testimonial_id)->update([
+            Testimonial::findOrFail($testimonial_id)->update([
                 'name' => $request->name,
-                'name' => $request->message,
+                'message' => $request->message,
                 'position' => $request->position,
                 'image' => $request->image,
                 'image' => $save_url
