@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Backend\TestimonialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/edit/state/{id}','EditState')->name('edit.state');
         Route::post('/update/state','UpdateState')->name('update.state');
         Route::get('/delete/state/{id}','DeleteState')->name('delete.state');
+    });
+    // Testimonial All Route
+    Route::controller(TestimonialController::class)->group(function(){
+        Route::get('/all/testimonial','AllTestimonial')->name('all.testimonial');
+        Route::get('/add/testimonial','AddTestimonial')->name('add.testimonial');
+        // Route::post('/store/type','StoreType')->name('store.type');
+        // Route::get('/edit/type/{id}','EditType')->name('edit.type');
+        // Route::post('/update/type','UpdateType')->name('update.type');
+        // Route::get('/delete/type/{id}','DeleteType')->name('delete.type');
     });
     // Amenities All Route
     Route::controller(PropertyTypeController::class)->group(function(){

@@ -38,6 +38,24 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#testimonial" role="button" aria-expanded="false" aria-controls="testimonial">
+            <i class="link-icon" data-feather="mail"></i>
+            <span class="link-title">Testimonial Manage</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="testimonial">
+            <ul class="nav sub-menu">
+                <li class="nav-item">
+                <a href="{{ route('all.testimonial') }}" class="nav-link">All Testimonial</a>
+                </li>
+                <li class="nav-item">
+                <a href="{{ route('add.testimonial') }}" class="nav-link">Add Testimonial</a>
+                </li>
+                
+            </ul>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
             <i class="link-icon" data-feather="mail"></i>
             <span class="link-title">Property Type</span>
