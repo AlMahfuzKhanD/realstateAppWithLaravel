@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Agent\AgentPropertyController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\TestimonialController;
 
@@ -107,6 +108,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/edit/testimonial/{id}','EditTestimonial')->name('edit.testimonial');
         Route::post('/update/testimonial','UpdateTestimonial')->name('update.testimonial');
         Route::get('/delete/testimonial/{id}','DeleteTestimonial')->name('delete.testimonial');
+    });
+    // Blog Category All Route
+    Route::controller(BlogController::class)->group(function(){
+        Route::get('/all/blog/category','AllBlogCategory')->name('all.blog.category');
+        // Route::get('/add/testimonial','AddTestimonial')->name('add.testimonial');
+        // Route::post('/store/testimonial','StoreTestimonial')->name('store.testimonial');
+        // Route::get('/edit/testimonial/{id}','EditTestimonial')->name('edit.testimonial');
+        // Route::post('/update/testimonial','UpdateTestimonial')->name('update.testimonial');
+        // Route::get('/delete/testimonial/{id}','DeleteTestimonial')->name('delete.testimonial');
     });
     // Amenities All Route
     Route::controller(PropertyTypeController::class)->group(function(){
