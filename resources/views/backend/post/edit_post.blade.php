@@ -38,7 +38,7 @@
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Short Description</label>
-                                        <textarea type="text" class="form-control" name="short_description" rows="2" >{{ $post->short_description }}</textarea>
+                                        <textarea type="text" class="form-control" name="short_description" rows="2" >{!! $post->short_description !!}</textarea>
                                     </div>
                                 </div><!-- Col -->    
                             </div><!-- Row -->
@@ -46,7 +46,7 @@
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Long Description</label>
-                                        <textarea class="form-control" name="long_description" id="tinymceExample" rows="10">{{ $post->long_description }}</textarea>
+                                        <textarea class="form-control" name="long_description" id="tinymceExample" rows="10">{!! $post->long_description !!}</textarea>
                                     </div>
                                 </div><!-- Col -->    
                             </div>
