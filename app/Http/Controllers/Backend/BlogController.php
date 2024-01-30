@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use DB;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
+use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -99,4 +102,10 @@ class BlogController extends Controller
         return redirect()->back()->with($notification);
 
     } // DeleteBlogCategory
+ 
+    public function AllPost(){
+        $all_post = BlogPost::latest()->get();
+        return view('backend.post.all_post',compact('all_post'));
+    } //end method
+
 }

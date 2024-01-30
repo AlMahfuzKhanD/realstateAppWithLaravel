@@ -142,6 +142,24 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#blog_post" role="button" aria-expanded="false" aria-controls="blog_post">
+            <i class="link-icon" data-feather="feather"></i>
+            <span class="link-title">Blog Post</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="blog_post">
+            <ul class="nav sub-menu">
+                <li class="nav-item">
+                <a href="{{ route('all.post') }}" class="nav-link">All Post</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('add.agent') }}" class="nav-link">Add Post</a>
+                    </li>
+                
+            </ul>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#blog_category" role="button" aria-expanded="false" aria-controls="blog_category">
             <i class="link-icon" data-feather="feather"></i>
             <span class="link-title">Blog Category</span>
