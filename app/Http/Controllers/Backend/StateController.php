@@ -147,5 +147,5 @@ class StateController extends Controller
         );
         return redirect()->back()->with($notification);
 
-    } //e
+    } //e 
 }

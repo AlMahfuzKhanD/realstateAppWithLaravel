@@ -87,4 +87,16 @@ class BlogController extends Controller
             // something went wrong
         }
     }
+
+    public function DeleteBlogCategory($id){
+
+       BlogCategory::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Category Deleted successfully!!',
+            'alert-state' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // DeleteBlogCategory
 }

@@ -35,7 +35,7 @@
                                 <button type="button" class="btn btn-inverse-warning" data-bs-toggle="modal" data-bs-target="#catagoryEdit" id="{{ $item->id }}" onclick="categoryEdit(this.id)">
                                     Edit
                                 </button>
-                                <a href="{{ route('delete.state',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
+                                <a href="{{ route('delete.blog.category',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
                             </td>
     
                         </tr>
