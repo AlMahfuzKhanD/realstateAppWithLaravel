@@ -58,7 +58,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Post Image</label>
-                                <input type="file" class="form-control" name="state_image" onChange="postUrl(this)" required>
+                                <input type="file" class="form-control" name="post_image" onChange="postUrl(this)" required>
                                 <br>
                                 <img src="" alt="" id="postImage">
                             </div>

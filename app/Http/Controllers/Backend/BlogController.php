@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use DB;
+use App\Models\BlogPost;
+use App\Models\BlogCategory;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-use App\Http\Controllers\Controller;
-use App\Models\BlogCategory;
-use App\Models\BlogPost;
-use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
@@ -113,4 +114,54 @@ class BlogController extends Controller
         return view('backend.post.add_post',compact('blog_categories'));
     } //end method
 
+    public function StorePost(Request $request){
+        // Validation
+        $request->validate([
+            'post_title' => 'required',
+        ]);
+
+        
+        DB::beginTransaction();
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        try {
+            if($request->file('post_image')){
+                $selected_image = $request->file('post_image');
+                $manager = new ImageManager(new Driver());
+                $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+                $img = $manager->read($selected_image);
+                $img = $img->resize(370,250);
+                $img->toJpeg(80)->save(base_path('public/upload/blog/post'.$name_gen));
+                $save_url = 'upload/blog/post'.$name_gen;
+            }
+    
+            BlogPost::insert([
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ','-', $request->post_title)),
+                'blog_cat_id' => $request->blog_cat_id,
+                'user_id' => Auth::user()->id,
+                'short_description' => $request->short_description,
+                'long_description' => $request->long_description,
+                'post_tags' => $request->post_tags,
+                'post_image' => $save_url
+            ]);
+    
+            $notification = array(
+                'message' => 'Post Created successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.post')->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with($notification);
+            // something went wrong
+        }
+
+    }
 }
