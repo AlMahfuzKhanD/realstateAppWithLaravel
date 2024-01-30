@@ -165,7 +165,7 @@ class BlogController extends Controller
 
     }
 
-    public function EditState($id){
+    public function EditPost($id){
 
         // Validation
         $blog_categories = BlogCategory::latest()->get();
@@ -174,10 +174,10 @@ class BlogController extends Controller
 
     } //end method
 
-    public function UpdateState(Request $request){
+    public function UpdatePost(Request $request){
        
-        $state_id = $request->state_id;
-        $old_state_image = $request->old_state_image;
+        $post_id = $request->post_id;
+        $old_post_image = $request->old_post_image;
         $notification = array(
             'message' => 'Something Went Wrong!!',
             'alert-type' => 'warning'
@@ -185,33 +185,39 @@ class BlogController extends Controller
         DB::beginTransaction();
         try {
 
-            if($request->file('state_image')){
+            if($request->file('post_image')){
 
-                $selected_image = $request->file('state_image');
+                $selected_image = $request->file('post_image');
                 $manager = new ImageManager(new Driver());
                 $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
                 $img = $manager->read($selected_image);
                 $img = $img->resize(370,250);
-                $img->toJpeg(80)->save(base_path('public/upload/property/state/'.$name_gen));
-                $save_url = 'upload/property/state/'.$name_gen;
+                $img->toJpeg(80)->save(base_path('public/upload/blog/post/'.$name_gen));
+                $save_url = 'upload/blog/post/'.$name_gen;
             }
 
-            if(file_exists($old_state_image)){
-                unlink($old_state_image);
+            if(file_exists($old_post_image)){
+                unlink($old_post_image);
             }
 
-            State::findOrFail($state_id)->update([
-                'state_name' => $request->state_name,
-                'state_imag' => $save_url
+            BlogPost::findOrFail($post_id)->update([
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ','-', $request->post_title)),
+                'blog_cat_id' => $request->blog_cat_id,
+                'user_id' => Auth::user()->id,
+                'short_description' => $request->short_description,
+                'long_description' => $request->long_description,
+                'post_tags' => $request->post_tags,
+                'post_image' => $save_url
             ]);
 
 
             $notification = array(
-                'message' => 'State Updated successfully!!',
+                'message' => 'Post Updated successfully!!',
                 'alert-type' => 'success'
             );
             DB::commit();
-            return redirect()->route('all.state')->with($notification);
+            return redirect()->route('all.post')->with($notification);
 
             // all good
         } catch (\Exception $e) {

@@ -11,13 +11,13 @@
 
                         <form method="post" action="{{ route('update.post') }}" class="forms-sample" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="state_id" value="{{ $post->id }}"/>
+                            <input type="hidden" name="post_id" value="{{ $post->id }}"/>
                             <input type="hidden" name="old_post_image" value="{{ $post->post_image }}">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label class="form-label">Post Title</label>
-                                        <input type="text" class="form-control" name="post_title" required value="{{ $post->post_image }}">
+                                        <input type="text" class="form-control" name="post_title" required value="{{ $post->post_title }}">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-6">
@@ -26,7 +26,7 @@
                                         <select class="form-select" name="blog_cat_id" required>
                                             <option selected="" disabled="">Select Category</option>
                                             @foreach ($blog_categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category_name??'' }}</option>
+                                            <option value="{{ $category->id }}" {{ $post->blog_cat_id == $category->id? 'selected' :'' }}>{{ $category->category_name??'' }}</option>
                                             @endforeach
 
                                         </select>
