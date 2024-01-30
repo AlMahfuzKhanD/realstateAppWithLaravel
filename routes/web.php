@@ -113,8 +113,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::controller(BlogController::class)->group(function(){
         Route::get('/all/blog/category','AllBlogCategory')->name('all.blog.category');
         Route::post('/store/blog/category','StoreBlogCategory')->name('store.blog.category');
-        // Route::get('/edit/testimonial/{id}','EditTestimonial')->name('edit.testimonial');
-        // Route::post('/update/testimonial','UpdateTestimonial')->name('update.testimonial');
+        Route::get('/blog/category/{id}','EditBlogCategory');
+        Route::post('/update/blog/category','UpdateBlogCategory')->name('update.blog.category');
         // Route::get('/delete/testimonial/{id}','DeleteTestimonial')->name('delete.testimonial');
     });
     // Amenities All Route
