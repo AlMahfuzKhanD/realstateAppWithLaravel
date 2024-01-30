@@ -164,4 +164,85 @@ class BlogController extends Controller
         }
 
     }
+
+    public function EditState($id){
+
+        // Validation
+        $blog_categories = BlogCategory::latest()->get();
+        $post = BlogPost::findOrFail($id);
+        return view('backend.post.edit_post',compact('post','blog_categories'));
+
+    } //end method
+
+    public function UpdateState(Request $request){
+       
+        $state_id = $request->state_id;
+        $old_state_image = $request->old_state_image;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+
+            if($request->file('state_image')){
+
+                $selected_image = $request->file('state_image');
+                $manager = new ImageManager(new Driver());
+                $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+                $img = $manager->read($selected_image);
+                $img = $img->resize(370,250);
+                $img->toJpeg(80)->save(base_path('public/upload/property/state/'.$name_gen));
+                $save_url = 'upload/property/state/'.$name_gen;
+            }
+
+            if(file_exists($old_state_image)){
+                unlink($old_state_image);
+            }
+
+            State::findOrFail($state_id)->update([
+                'state_name' => $request->state_name,
+                'state_imag' => $save_url
+            ]);
+
+
+            $notification = array(
+                'message' => 'State Updated successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('all.state')->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+
+        
+
+    } // end of UpdatePropertyThumbnail
+
+    public function DeletePost($id){
+
+        $post = BlogPost::findOrFail($id);
+        $img = $post->post_image;
+        unlink($img);
+        
+        $post->delete();
+
+        $notification = array(
+            'message' => 'Post Deleted successfully!!',
+            'alert-state' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }  // DeleteBlogCategory
 }
