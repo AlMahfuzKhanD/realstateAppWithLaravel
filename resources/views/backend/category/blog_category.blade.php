@@ -57,13 +57,20 @@
           <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
         </div>
+        <form id="myForm" method="post" action="{{ route('store.blog.category') }}" class="forms-sample">
+         @csrf
         <div class="modal-body">
-          ...
+            
+                
+                <div class="form-group mb-3">
+                    <label for="amenities_name" class="form-label">Blog Category Name</label>
+                    <input type="text" class="form-control" id="category_name" name="category_name" autocomplete="off"/>
+                </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-inverse-info">Save changes</button>
+          <button type="submit" class="btn btn-inverse-info">Save changes</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
