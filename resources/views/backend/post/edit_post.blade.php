@@ -47,6 +47,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Long Description</label>
                                         <textarea class="form-control" name="long_description" id="tinymceExample" rows="10">{!! $post->long_description !!}</textarea>
+                                        edit 
                                     </div>
                                 </div><!-- Col -->    
                             </div>
