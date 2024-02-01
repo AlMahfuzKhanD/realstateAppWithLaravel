@@ -271,4 +271,11 @@ class BlogController extends Controller
         $breadcrumb = BlogCategory::where('id',$id)->first();
         return view('frontend.blog.blog_category_list',compact('blogs','blog_category','recent_post','breadcrumb'));
     }
+
+    public function BlogList(){
+        $blogs = BlogPost::latest()->get();
+        $blog_category = BlogCategory::latest()->orderBy('id', 'desc')->get();
+        $recent_post = BlogPost::latest()->limit(3)->get();
+        return view('frontend.blog.blog_list',compact('blogs','blog_category','recent_post'));
+    }
 }

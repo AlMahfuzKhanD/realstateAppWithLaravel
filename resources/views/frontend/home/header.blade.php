@@ -81,7 +81,7 @@
                                     
                                 </li>
                                 <li>
-                                    <a href="{{ url('/') }}"><span>Blog</span></a>
+                                    <a href="{{ route('blog.list') }}"><span>Blog</span></a>
                                     
                                 </li>
                                 
