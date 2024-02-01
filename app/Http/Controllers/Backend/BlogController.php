@@ -7,6 +7,7 @@ use App\Models\BlogPost;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -146,7 +147,8 @@ class BlogController extends Controller
                 'short_description' => $request->short_description,
                 'long_description' => $request->long_description,
                 'post_tags' => $request->post_tags,
-                'post_image' => $save_url
+                'post_image' => $save_url,
+                'created_at' => Carbon::now()
             ]);
     
             $notification = array(
@@ -208,7 +210,8 @@ class BlogController extends Controller
                 'short_description' => $request->short_description,
                 'long_description' => $request->long_description,
                 'post_tags' => $request->post_tags,
-                'post_image' => $save_url
+                'post_image' => $save_url,
+                'updated_at' => Carbon::now()
             ]);
 
 

@@ -9,6 +9,7 @@ use App\Models\Testimonial;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Role;
+use App\Models\BlogPost;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -31,7 +32,9 @@ class UserController extends Controller
 
         $testimonials = Testimonial::latest()->get();
 
-        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','hot_places','states','p_type','testimonials'));
+        $blog_posts = BlogPost::latest()->limit(3)->get();
+
+        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','hot_places','states','p_type','testimonials','blog_posts'));
     } // end of index
 
     public function UserProfile(){
