@@ -174,7 +174,7 @@
                                         @php
                                             $post = App\Models\BlogPost::where('blog_cat_id',$category->id)->get();
                                         @endphp
-                                        <li><a href="#">{{ $category->category_name??'' }}<span>({{ count($post) }})</span></a></li>
+                                        <li><a href="{{ url('blog/category/list/'.$category->id) }}">{{ $category->category_name??'' }}<span>({{ count($post) }})</span></a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="post-inner">
                                     
-                                    @foreach ($details_post as $post)
+                                    @foreach ($recent_post as $post)
                                     <div class="post">
                                         <figure class="post-thumb"><a href="{{ url('blog/details/'.$post->id) }}"><img src="{{ asset($post->post_image) }}" alt=""></a></figure>
                                         <h5><a href="{{ url('blog/details/'.$post->id) }}">{{ $post->post_title??'' }}</a></h5>

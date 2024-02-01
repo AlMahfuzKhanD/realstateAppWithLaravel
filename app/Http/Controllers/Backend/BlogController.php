@@ -260,7 +260,15 @@ class BlogController extends Controller
         $tags = $blog->post_tags;
         $exploded_tags = explode(',',$tags);
         $blog_category = BlogCategory::latest()->orderBy('id', 'desc')->get();
-        $details_post = BlogPost::latest()->limit(3)->get();
-        return view('frontend.blog.blog_details',compact('blog','exploded_tags','blog_category','details_post'));
+        $recent_post = BlogPost::latest()->limit(3)->get();
+        return view('frontend.blog.blog_details',compact('blog','exploded_tags','blog_category','recent_post'));
+    }
+
+    public function BlogCategoryList($id){
+        $blogs = BlogPost::where('blog_cat_id',$id)->get();
+        $blog_category = BlogCategory::latest()->orderBy('id', 'desc')->get();
+        $recent_post = BlogPost::latest()->limit(3)->get();
+        $breadcrumb = BlogCategory::where('id',$id)->first();
+        return view('frontend.blog.blog_category_list',compact('blogs','blog_category','recent_post','breadcrumb'));
     }
 }
