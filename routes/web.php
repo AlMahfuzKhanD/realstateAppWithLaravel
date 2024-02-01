@@ -220,4 +220,5 @@ Route::get('/state/details/{id}',[IndexController::class,'StateDetails'])->name(
 Route::post('/buy/property/search',[IndexController::class,'BuyPropertySearch'])->name('buy.property.search');
 Route::post('/rent/property/search',[IndexController::class,'RentPropertySearch'])->name('rent.property.search');
 Route::post('/all/property/search',[IndexController::class,'AllPropertySearch'])->name('all.property.search');
+Route::get('/blog/details/{id}',[BlogController::class,'BlogDetails']);
 

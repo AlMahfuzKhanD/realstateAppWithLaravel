@@ -254,4 +254,13 @@ class BlogController extends Controller
         return redirect()->back()->with($notification);
 
     }  // DeleteBlogCategory
+
+    public function BlogDetails($id){
+        $blog = BlogPost::where('id',$id)->first();
+        $tags = $blog->post_tags;
+        $exploded_tags = explode(',',$tags);
+        $blog_category = BlogCategory::latest()->orderBy('id', 'desc')->get();
+        $details_post = BlogPost::latest()->limit(3)->get();
+        return view('frontend.blog.blog_details',compact('blog','exploded_tags','blog_category','details_post'));
+    }
 }
