@@ -111,18 +111,13 @@
                                 <div class="group-title">
                                     <h4>Leave a Comment</h4>
                                 </div>
-                                <form action="blog-details.html" method="post" class="comment-form default-form">
+                                @auth
+                                <form action="{{ route('store.coment') }}" method="post" class="comment-form default-form">
+                                    @csrf
+                                    <input type="hidden" name="post_id" value="{{ $blog->id }}">
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                            <input type="text" name="name" placeholder="Your name" required="">
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                            <input type="email" name="email" placeholder="Your email" required>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                            <input type="text" name="phone" placeholder="Phone number" required="">
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        
+                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                             <input type="text" name="subject" placeholder="Subject" required="">
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -133,6 +128,9 @@
                                         </div>
                                     </div>
                                 </form>
+                                @else
+                                <p><b>To add comment , You need to login first. <a href="{{ route('login') }}" >Login Here!!</a></b> </p>
+                                @endauth
                             </div>
                         </div>
                     </div>
