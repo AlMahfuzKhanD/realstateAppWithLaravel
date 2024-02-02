@@ -171,6 +171,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     });
     
     Route::get('/admin/blog/comment',[BlogController::class,'AdminBlogComment'])->name('admin.blog.comment');
+    Route::get('/admin/comment/reply/{id}',[BlogController::class,'AdminCommentReply'])->name('admin.comment.reply');
+    Route::post('/admin/store/reply/comment',[BlogController::class,'AdminReplyStoreComment'])->name('reply.comment');
 
 }); // Admin Middleware
 

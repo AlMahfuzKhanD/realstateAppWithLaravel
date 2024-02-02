@@ -32,7 +32,7 @@
                             <td>{{ $item->user->name??'' }}</td>
                             <td>{{ $item->subject??'' }}</td>
                             <td>
-                                <a href="{{ route('edit.state',$item->id) }}" class="btn btn-inverse-warning"> Reply</a>
+                                <a href="{{ route('admin.comment.reply',$item->id) }}" class="btn btn-inverse-warning"> Reply</a>
                                 
                             </td>
     

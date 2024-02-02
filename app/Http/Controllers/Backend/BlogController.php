@@ -324,4 +324,50 @@ class BlogController extends Controller
         $comment = Comment::where('parent_id',null)->latest()->get();
         return view('backend.comment.comment_all',compact('comment'));
     }
+
+    public function AdminCommentReply($id){
+        $comment = Comment::where('id',$id)->first();
+        return view('backend.comment.comment_reply',compact('comment'));
+    }
+
+    public function AdminReplyStoreComment(Request $request){
+        $id = $request->id;
+        $user_id = $request->user_id;
+        $post_id = $request->post_id;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            Comment::insert([
+                'user_id' => $user_id,
+                'post_id' => $post_id,
+                'parent_id' => $id,
+                'subject' => $request->subject,
+                'message' => $request->message,
+                'created_at' => Carbon::now()
+            ]);
+
+
+            $notification = array(
+                'message' => 'Comment Replied successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    }
 }
