@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use DB;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\State;
 use App\Models\Facility;
 use App\Models\Property;
+use App\Models\Schedule;
 use App\Models\MultiImage;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
@@ -166,5 +168,59 @@ class IndexController extends Controller
         })->get();
 
         return view('frontend.property.property_search',compact('property'));
+    }
+
+    public function StoreSchedule(Request $request){
+
+        $agent_id = $request->agent_id;
+        $property_id = $request->property_id;
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+
+        try {
+
+            if(Auth::check()){
+                Schedule::insert([
+                    'user_id' => Auth::user()->id,
+                    'property_id' => $property_id,
+                    'agent_id' => $agent_id,
+                    'tour_date' => $request->tour_date,
+                    'tour_time' => $request->tour_time,
+                    'message' => $request->message,
+                    'created_at' => Carbon::now()
+                ]);
+
+                $notification = array(
+                'message' => 'Tour Scheduled successfully!!',
+                'alert-type' => 'success'
+            ); 
+            }else{
+                $notification = array(
+                    'message' => 'Login First!!',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+           
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
     }
 }
