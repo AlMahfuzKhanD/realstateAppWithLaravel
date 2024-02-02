@@ -7,6 +7,7 @@ use App\Models\BlogPost;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
@@ -277,5 +278,45 @@ class BlogController extends Controller
         $blog_category = BlogCategory::latest()->orderBy('id', 'desc')->get();
         $recent_post = BlogPost::latest()->limit(3)->get();
         return view('frontend.blog.blog_list',compact('blogs','blog_category','recent_post'));
+    }
+
+    public function StoreComment(Request $request){
+        $post_id = $request->post_id;
+        
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+        DB::beginTransaction();
+        try {
+            Comment::insert([
+                'user_id' => Auth::user()->id,
+                'post_id' => $post_id,
+                'parent_id' => null,
+                'subject' => $request->subject,
+                'message' => $request->message,
+                'created_at' => Carbon::now()
+            ]);
+
+
+            $notification = array(
+                'message' => 'Comment Created successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+            // all good
+        } catch (\Exception $e) {
+            
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
     }
 }
