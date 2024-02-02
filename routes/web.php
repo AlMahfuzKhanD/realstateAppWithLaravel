@@ -169,6 +169,9 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/agent','UpdateAgent')->name('update.agent');
         Route::get('/changeStatus','ChangeStatus');
     });
+    
+    Route::get('/admin/blog/comment',[BlogController::class,'AdminBlogComment'])->name('admin.blog.comment');
+
 }); // Admin Middleware
 
 

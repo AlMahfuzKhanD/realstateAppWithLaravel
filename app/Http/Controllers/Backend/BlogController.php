@@ -319,4 +319,9 @@ class BlogController extends Controller
             // something went wrong
         }
     }
+
+    public function AdminBlogComment(){
+        $comment = Comment::where('parent_id',null)->latest()->get();
+        return view('backend.comment.comment_all',compact('comment'));
+    }
 }
