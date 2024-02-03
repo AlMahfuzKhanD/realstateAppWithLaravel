@@ -616,4 +616,40 @@ class AgentPropertyController extends Controller
         return view('agent.schedule.schedule_request',compact('userScheduleData'));
     } // end method AgentScheduleRequest
 
+    public function AgentScheduleDetails($id){
+        $schedule = Schedule::findOrFail($id);
+        return view('agent.schedule.schedule_details',compact('schedule'));
+    } // end method AgentScheduleDetails
+
+    public function AgentScheduleUpdate(Request $request){
+
+        $schedule_id = $request->id;
+        
+
+        DB::beginTransaction();
+        try {
+
+            Schedule::findOrFail($schedule_id)->update([
+                'status' => 1
+            ]);
+            
+            $notification = array(
+                'message' => 'Schedule confirmed successfully!!',
+                'alert-type' => 'success'
+            );
+            DB::commit();
+            return redirect()->route('agent.schedule.request')->with($notification);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    } // end method AgentScheduleDetails
+
 }

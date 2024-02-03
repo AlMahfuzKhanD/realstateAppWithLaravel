@@ -197,6 +197,8 @@ Route::middleware(['auth','role:agent'])->group(function(){
         Route::get('/agent/property/message','AgentPropertyMessage')->name('agent.property.message');
         Route::get('/agent/message/details/{id}','AgentMessageDetails')->name('agent.message.details');
         Route::get('/agent/schedule/request','AgentScheduleRequest')->name('agent.schedule.request');
+        Route::get('/agent/schedule/details/{id}','AgentScheduleDetails')->name('agent.schedule.details');
+        Route::post('/agent/update/schedule','AgentScheduleUpdate')->name('agent.update.schedule');
     });
 
     // Agent buy package
