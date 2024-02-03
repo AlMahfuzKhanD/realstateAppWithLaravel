@@ -10,6 +10,7 @@ use App\Models\Facility;
 use App\Models\Property;
 use App\Models\Schedule;
 use App\Models\Amenities;
+use App\Mail\ScheduleMail;
 use App\Models\MultiImage;
 use App\Models\PackagePlan;
 use App\Models\PropertyType;
@@ -18,6 +19,7 @@ use App\Models\PropertyMessage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -629,10 +631,21 @@ class AgentPropertyController extends Controller
         DB::beginTransaction();
         try {
 
-            Schedule::findOrFail($schedule_id)->update([
+            $schedule_data = Schedule::findOrFail($schedule_id);
+            $schedule_data->update([
                 'status' => 1
             ]);
+
+            // Send email
             
+            $data = [
+                'tour_date' => $schedule_data->tour_date,
+                'tour_time' => $schedule_data->tour_time
+            ];
+
+            Mail::to($request->user_email)->send(new ScheduleMail($data));
+
+            ///
             $notification = array(
                 'message' => 'Schedule confirmed successfully!!',
                 'alert-type' => 'success'
