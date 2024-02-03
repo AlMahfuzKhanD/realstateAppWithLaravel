@@ -196,6 +196,7 @@ Route::middleware(['auth','role:agent'])->group(function(){
         Route::get('/delete/agent/property/{id}','DeleteAgentProperty')->name('delete.agent.property');
         Route::get('/agent/property/message','AgentPropertyMessage')->name('agent.property.message');
         Route::get('/agent/message/details/{id}','AgentMessageDetails')->name('agent.message.details');
+        Route::get('/agent/schedule/request','AgentScheduleRequest')->name('agent.schedule.request');
     });
 
     // Agent buy package

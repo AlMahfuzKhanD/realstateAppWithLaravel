@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\State;
 use App\Models\Facility;
 use App\Models\Property;
+use App\Models\Schedule;
 use App\Models\Amenities;
 use App\Models\MultiImage;
 use App\Models\PackagePlan;
@@ -609,7 +610,10 @@ class AgentPropertyController extends Controller
         return view('agent.message.message_details',compact('userMessageData','messageDetails'));
     } // end method AgentPropertyMessage
 
-    
-
+    public function AgentScheduleRequest(){
+        $user_id = Auth::user()->id;
+        $userScheduleData = Schedule::where('agent_id',$user_id)->get();
+        return view('agent.schedule.schedule_request',compact('userScheduleData'));
+    } // end method AgentScheduleRequest
 
 }
