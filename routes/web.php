@@ -5,16 +5,17 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Agent\AgentPropertyController;
-use App\Http\Controllers\Backend\BlogController;
-use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\PropertyTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -173,6 +174,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin/blog/comment',[BlogController::class,'AdminBlogComment'])->name('admin.blog.comment');
     Route::get('/admin/comment/reply/{id}',[BlogController::class,'AdminCommentReply'])->name('admin.comment.reply');
     Route::post('/admin/store/reply/comment',[BlogController::class,'AdminReplyStoreComment'])->name('reply.comment');
+    Route::post('/admin/smtp/setting',[SettingController::class,'SmptSetting'])->name('admin.smtp.setting');
 
 }); // Admin Middleware
 
