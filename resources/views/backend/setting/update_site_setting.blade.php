@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h6 class="card-title">Update Site Setting</h6>
 
-                        <form id="myForm" method="post" action="{{ route('update.site.setting') }}" class="forms-sample">
+                        <form id="myForm" method="post" action="{{ route('update.site.setting') }}" class="forms-sample" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $data->id }}">
                             <div class="form-group mb-3">
@@ -25,7 +25,7 @@
                                 <input type="email" class="form-control" id="email" name="email" value="{{ $data->email??'' }}"/>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="facebook" class="form-label">User Name</label>
+                                <label for="facebook" class="form-label">Facebook</label>
                                 <input type="text" class="form-control" id="facebook" name="facebook" value="{{ $data->facebook??'' }}"/>
                             </div>
                             <div class="form-group mb-3">

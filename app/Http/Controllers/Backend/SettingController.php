@@ -7,6 +7,8 @@ use App\Models\SiteSetting;
 use App\Models\SmtpSetting;
 use Illuminate\Http\Request;
 use DB;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class SettingController extends Controller
 {
@@ -56,23 +58,48 @@ class SettingController extends Controller
     }
 
     public function UpdateSiteSetting(Request $request){
-        $smtp_id = $request->id;
+
+        $settings_id = $request->id;
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
 
         DB::beginTransaction();
         try {
 
-            SmtpSetting::findOrFail($smtp_id)->update([
-                'mailer' => $request->mailer,
-                'host' => $request->host,
-                'port' => $request->port,
-                'user_name' => $request->user_name,
-                'password' => $request->password,
-                'encryption' => $request->encryption,
-                'from_address' => $request->from_address
-            ]);
-            
+            if($request->file('logo')){
+
+                $selected_image = $request->file('logo');
+                $manager = new ImageManager(new Driver());
+                $name_gen = hexdec(uniqid()).'.'.$selected_image->getClientOriginalExtension();
+                $img = $manager->read($selected_image);
+                $img = $img->resize(1500,386);
+                $img->toJpeg(80)->save(base_path('public/upload/logo/'.$name_gen));
+                $save_url = 'upload/logo/'.$name_gen;
+
+                SiteSetting::findOrFail($settings_id)->update([
+                    'support_phone' => $request->support_phone,
+                    'company_address' => $request->company_address,
+                    'email' => $request->email,
+                    'twitter' => $request->twitter,
+                    'copyright' => $request->copyright,
+                    'facebook' => $request->facebook,
+                    'logo' => $save_url
+                ]);
+            }else{
+                SiteSetting::findOrFail($settings_id)->update([
+                    'support_phone' => $request->support_phone,
+                    'company_address' => $request->company_address,
+                    'email' => $request->email,
+                    'twitter' => $request->twitter,
+                    'copyright' => $request->copyright,
+                    'facebook' => $request->facebook
+                ]);
+            }
+
             $notification = array(
-                'message' => 'Updated successfully!!',
+                'message' => 'State Settings Updated successfully!!',
                 'alert-type' => 'success'
             );
             DB::commit();
