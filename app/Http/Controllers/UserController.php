@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\State;
+use App\Models\BlogPost;
 use App\Models\Property;
+use App\Models\Schedule;
 use App\Models\Testimonial;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Http\Middleware\Role;
-use App\Models\BlogPost;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -115,6 +116,15 @@ class UserController extends Controller
             'alert-type' => 'success'
         );
         return back()->with($notification);
+
+    } // end UpdateUserPassword
+
+    public function UserScheduleRequest(){
+
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        $schedule_request = Schedule::where('user_id',$id)->get();
+        return view('frontend.message.schedule_request',compact('userData','schedule_request'));
 
     } // end UpdateUserPassword
 }
