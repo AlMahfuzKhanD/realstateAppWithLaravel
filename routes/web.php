@@ -177,6 +177,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::post('/admin/store/reply/comment',[BlogController::class,'AdminReplyStoreComment'])->name('reply.comment');
     Route::get('/admin/smtp/setting',[SettingController::class,'SmptSetting'])->name('admin.smtp.setting');
     Route::post('/update/smtp/setting',[SettingController::class,'UpdateSmptSetting'])->name('update.smtp.setting');
+    Route::get('/admin/site/setting',[SettingController::class,'SiteSetting'])->name('admin.site.setting');
+    Route::post('/update/site/setting',[SettingController::class,'UpdateSiteSetting'])->name('update.site.setting');
 
 }); // Admin Middleware
 
