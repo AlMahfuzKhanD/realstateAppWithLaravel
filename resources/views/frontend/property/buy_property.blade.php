@@ -1,4 +1,8 @@
-@extends('frontend.frontend_dashboard') @section('content')
+@extends('frontend.frontend_dashboard')
+@section('title')
+    Al Mahfuz
+@endsection
+@section('content')
 <!--Page Title-->
 <section class="page-title-two bg-color-1 centred">
     <div class="pattern-layer">

@@ -35,9 +35,8 @@ class UserController extends Controller
         $testimonials = Testimonial::latest()->get();
 
         $blog_posts = BlogPost::latest()->limit(3)->get();
-        $setting_data = SiteSetting::first();
 
-        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','hot_places','states','p_type','testimonials','blog_posts','setting_data'));
+        return view('frontend.index',compact('property_type','feature_properties','agents','hot_properties','hot_places','states','p_type','testimonials','blog_posts'));
        
     } // end of index
 

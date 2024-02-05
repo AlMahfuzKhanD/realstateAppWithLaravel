@@ -1,4 +1,7 @@
 @extends('frontend.frontend_dashboard')
+@section('title')
+    Al Mahfuz
+@endsection
 @section('content')
 <!-- banner-section -->
 @include('frontend.home.banner')

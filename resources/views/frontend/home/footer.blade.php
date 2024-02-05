@@ -1,3 +1,7 @@
+@php
+    $setting_data = App\Models\SiteSetting::first();
+    $blog_posts_data = App\Models\BlogPost::latest()->limit(3)->get();
+@endphp
 <footer class="main-footer">
     <div class="footer-top bg-color-2">
         <div class="auto-container">
@@ -36,7 +40,7 @@
                             <h3>Top News</h3>
                         </div>
                         <div class="post-inner">
-                            @foreach ($blog_posts as $item)
+                            @foreach ($blog_posts_data as $item)
                             <div class="post">
                                 <figure class="post-thumb">
                                     <a href="{{ url('blog/details/'.$item->id) }}"><img src="{{ asset($item->post_image) }}" alt="" /></a>

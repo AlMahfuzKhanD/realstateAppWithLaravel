@@ -1,5 +1,5 @@
 @php
-    $setting_data_image = App\Models\SiteSetting::first();
+    $setting_data = App\Models\SiteSetting::first();
 @endphp
 <header class="main-header">
     <!-- header-top -->
@@ -51,7 +51,7 @@
             <div class="main-box">
                 <div class="logo-box">
                     <figure class="logo">
-                        <a href="{{ url('/') }}"><img src="{{ asset($setting_data_image->logo) }}" alt="" /></a>
+                        <a href="{{ url('/') }}"><img src="{{ asset($setting_data->logo) }}" alt="" /></a>
                     </figure>
                 </div>
                 <div class="menu-area clearfix">
@@ -109,7 +109,7 @@
             <div class="main-box">
                 <div class="logo-box">
                     <figure class="logo">
-                        <a href="{{ url('/') }}"><img src="{{ asset($setting_data_image->logo) }}" alt="" /></a>
+                        <a href="{{ url('/') }}"><img src="{{ asset($setting_data->logo) }}" alt="" /></a>
                     </figure>
                 </div>
                 <div class="menu-area clearfix">
