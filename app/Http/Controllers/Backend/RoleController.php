@@ -116,5 +116,11 @@ class RoleController extends Controller
 
     } //e
 
+    public function ImportPermission(){
+        
+        return view('backend.pages.permission.import_permission');
+
+    } //end of ImportPermission
+
 
 }
