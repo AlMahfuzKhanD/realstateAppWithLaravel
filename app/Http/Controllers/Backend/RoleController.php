@@ -56,4 +56,50 @@ class RoleController extends Controller
             return redirect()->back()->with($notification);
         }
     } // end method
+
+    public function EditPermission($id){
+
+        $permission = Permission::findOrFail($id);
+        return view('backend.pages.permission.edit_permission',compact('permission'));
+    } // end method 
+
+    public function UpdatePermission(Request $request){
+
+        $permission_id = $request->permission_id;
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+        try {
+
+            
+                Permission::findOrFail($permission_id)->update([
+                    'name' => $request->name,
+                    'group_name' => $request->group_name
+
+                ]);
+            
+
+            $notification = array(
+                'message' => 'Permission Updated successfully!!',
+                'alert-type' => 'success'
+            );
+
+            DB::commit();
+            return redirect()->route('all.permission')->with($notification);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    } // end method
 }
