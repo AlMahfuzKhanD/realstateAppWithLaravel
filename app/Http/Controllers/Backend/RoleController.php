@@ -43,7 +43,7 @@ class RoleController extends Controller
             );
 
             DB::commit();
-            return redirect()->back()->with($notification);
+            return redirect()->route('all.permission')->with($notification);
 
         } catch (\Exception $e) {
 
@@ -101,5 +101,20 @@ class RoleController extends Controller
             );
             return redirect()->back()->with($notification);
         }
-    } // end method
+    } // end method 
+
+    public function DeletePermission($id){
+        
+        Permission::findOrFail($id)->delete();
+
+
+        $notification = array(
+            'message' => 'State Deleted successfully!!',
+            'alert-state' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } //e
+
+
 }

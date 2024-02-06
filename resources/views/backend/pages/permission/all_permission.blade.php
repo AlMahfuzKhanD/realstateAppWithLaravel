@@ -31,7 +31,7 @@
                             <td>{{ $item->group_name }}</td>
                             <td>
                                 <a href="{{ route('edit.permission',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
-                                <a href="{{ route('delete.amenitie',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
+                                <a href="{{ route('delete.permission',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
                             </td>
     
                         </tr>
