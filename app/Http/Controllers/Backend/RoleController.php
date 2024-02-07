@@ -189,6 +189,64 @@ class RoleController extends Controller
             return redirect()->back()->with($notification);
         }
     } // end method
+
+    public function editRole($id){
+
+        $role = Role::findOrFail($id);
+        return view('backend.pages.role.edit_role',compact('role'));
+    } // end method 
+
+    public function updateRole(Request $request){
+
+        $role_id = $request->role_id;
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+        try {
+
+            
+                Role::findOrFail($role_id)->update([
+                    'name' => $request->name
+
+                ]);
+            
+
+            $notification = array(
+                'message' => 'Role Updated successfully!!',
+                'alert-type' => 'success'
+            );
+
+            DB::commit();
+            return redirect()->route('all.roles')->with($notification);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    } // end method 
+
+    public function deleteRole($id){
+        
+        Role::findOrFail($id)->delete();
+
+
+        $notification = array(
+            'message' => 'State Deleted successfully!!',
+            'alert-state' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } //e
     
 
 }
