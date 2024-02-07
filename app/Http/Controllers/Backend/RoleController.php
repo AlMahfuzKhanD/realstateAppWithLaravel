@@ -342,6 +342,20 @@ class RoleController extends Controller
             return redirect()->back()->with($notification);
         }
     } // end method updateRolePermission 
+
+    public function deleteRolePermission($id){
+        $role = Role::findOrFail($id);
+        if(!is_null($role)){
+            $role->delete();
+        }
+
+        $notification = array(
+            'message' => 'Role Permission Deleted successfully!!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
     
 
 }
