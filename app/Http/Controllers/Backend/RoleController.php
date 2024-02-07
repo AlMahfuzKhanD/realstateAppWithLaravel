@@ -254,7 +254,46 @@ class RoleController extends Controller
         $permissions = Permission::all();
         $permissionGroups = User::getPermissionGroups();
         return view('backend.pages.role.assign_permissions',compact('roles','permissions','permissionGroups'));
-    } // end method
+    } // end method 
+
+    public function storeAssignPermission(Request $request){
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+        try {
+
+            $data = array();
+            $permissions = $request->permissions;
+            foreach($permissions as $key => $item){
+                $data['role_id'] = $request->role_id;
+                $data['permission_id'] = $item;
+
+                DB::table('role_has_permissions')->insert($data);
+            } //end foreach
+
+            $notification = array(
+                'message' => 'Permission Assigned successfully!!',
+                'alert-type' => 'success'
+            );
+
+            DB::commit();
+            return redirect()->back()->with($notification);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    } // end method storeAssignPermission
     
 
 }

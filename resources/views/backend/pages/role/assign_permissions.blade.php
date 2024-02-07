@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <h6 class="card-title">Assign Permission</h6>
 
-                        <form id="myForm" method="post" action="{{ route('store.role') }}" class="forms-sample">
+                        <form id="myForm" method="post" action="{{ route('store.assign.permission') }}" class="forms-sample">
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="group_name" class="form-label">Group Name</label>
@@ -49,7 +49,7 @@
                                     @endphp
                                     @foreach ($permissions as $permission)
                                     <div class="form-check mb-2">
-                                        <input type="checkbox" class="form-check-input" name="permission[]" id="checkDefault_{{ $permission->id??'' }}" value="{{ $permission->id }}">
+                                        <input type="checkbox" class="form-check-input" name="permissions[]" id="checkDefault_{{ $permission->id??'' }}" value="{{ $permission->id }}">
                                         <label class="form-check-label" for="checkDefault_{{ $permission->id??'' }}">
                                             {{ $permission->name??'' }}
                                         </label>
