@@ -211,6 +211,9 @@
                 <li class="nav-item">
                 <a href="{{ route('assign.permission') }}" class="nav-link">Assign Permission</a>
                 </li>
+                <li class="nav-item">
+                <a href="{{ route('all.assigned.permission') }}" class="nav-link">All Assigned Permission</a>
+                </li>
                 
             </ul>
             </div>

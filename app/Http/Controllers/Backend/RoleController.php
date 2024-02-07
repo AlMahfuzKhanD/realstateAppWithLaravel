@@ -281,7 +281,7 @@ class RoleController extends Controller
             );
 
             DB::commit();
-            return redirect()->back()->with($notification);
+            return redirect()->route('all.assigned.permission')->with($notification);
 
         } catch (\Exception $e) {
 
@@ -293,7 +293,12 @@ class RoleController extends Controller
             );
             return redirect()->back()->with($notification);
         }
-    } // end method storeAssignPermission
+    } // end method storeAssignPermission 
+
+    public function allAssignedPermission(){
+        $roles = Role::all();
+        return view('backend.pages.role.all_assigned_permissions',compact('roles'));
+    } // end method allAssignedPermission 
     
 
 }

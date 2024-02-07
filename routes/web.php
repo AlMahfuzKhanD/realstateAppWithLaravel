@@ -204,6 +204,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/role','updateRole')->name('update.role');
         Route::get('/assign/permission','assignPermission')->name('assign.permission');
         Route::post('/store/assign/permission','storeAssignPermission')->name('store.assign.permission');
+        Route::get('/all/assigned/permission','allAssignedPermission')->name('all.assigned.permission');
 
     });
 
