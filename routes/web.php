@@ -202,6 +202,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/edit/role/{id}','editRole')->name('edit.role');
         Route::get('/delete/role/{id}','deleteRole')->name('delete.role');
         Route::post('/update/role','updateRole')->name('update.role');
+        Route::get('/assign/permission','assignPermission')->name('assign.permission');
+
     });
 
 }); // Admin Middleware

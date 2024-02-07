@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use DB;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Exports\PermissionExport;
 use App\Imports\PermissionImport;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -246,7 +247,14 @@ class RoleController extends Controller
         );
         return redirect()->back()->with($notification);
 
-    } //e
+    } //end of method
+
+    public function assignPermission(){
+        $roles = Role::all();
+        $permissions = Permission::all();
+        $permissionGroups = User::getPermissionGroups();
+        return view('backend.pages.role.assign_permissions',compact('roles','permissions','permissionGroups'));
+    } // end method
     
 
 }
