@@ -152,6 +152,43 @@ class RoleController extends Controller
     public function addRole(){
         return view('backend.pages.role.add_role');
     } // end method
+
+    public function storeRole(Request $request){
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+        try {
+
+            
+                Role::create([
+                    'name' => $request->name,
+
+                ]);
+            
+
+            $notification = array(
+                'message' => 'Role Created successfully!!',
+                'alert-type' => 'success'
+            );
+
+            DB::commit();
+            return redirect()->route('all.roles')->with($notification);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    } // end method
     
 
 }
