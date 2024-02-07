@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <h6 class="card-title">Import Permission</h6>
 
-                        <form id="myForm" method="post" action="{{ route('store.permission') }}" class="forms-sample">
+                        <form id="myForm" method="post" action="{{ route('import') }}" class="forms-sample" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="import_file" class="form-label">XCELL File Import</label>
