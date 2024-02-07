@@ -299,6 +299,49 @@ class RoleController extends Controller
         $roles = Role::all();
         return view('backend.pages.role.all_assigned_permissions',compact('roles'));
     } // end method allAssignedPermission 
+
+    public function adminEditRole($id){
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+        $permissionGroups = User::getPermissionGroups();
+        return view('backend.pages.role.edit_role_permissions',compact('role','permissions','permissionGroups'));
+    } // end method
+
+    public function updateRolePermission(Request $request, $id){
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+        try {
+
+            $role = Role::findOrFail($id);
+            $permissions = array_map('intval', $request->permissions);
+            if(!empty($permissions)){
+                $role->syncPermissions($permissions);
+            }
+
+            $notification = array(
+                'message' => 'Role Permission Updated successfully!!',
+                'alert-type' => 'success'
+            );
+
+            DB::commit();
+            return redirect()->route('all.assigned.permission')->with($notification);
+
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            $message = $e->getMessage();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    } // end method updateRolePermission 
     
 
 }
