@@ -195,6 +195,25 @@
         </li>
         <li class="nav-item nav-category">Role And Permission</li>
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#adminUser" role="button" aria-expanded="false" aria-controls="adminUser">
+            <i class="link-icon" data-feather="anchor"></i>
+            <span class="link-title">Manage Admin User</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="adminUser">
+            <ul class="nav sub-menu">
+                <li class="nav-item">
+                <a href="{{ route('all.admin.user') }}" class="nav-link">All Admin User</a>
+                </li>
+                <li class="nav-item">
+                <a href="{{ route('all.roles') }}" class="nav-link">Add Admin User</a>
+                </li>
+                
+                
+            </ul>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button" aria-expanded="false" aria-controls="advancedUI">
             <i class="link-icon" data-feather="anchor"></i>
             <span class="link-title">Role And Permission</span>

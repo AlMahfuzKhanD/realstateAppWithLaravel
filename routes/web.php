@@ -171,6 +171,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/delete/agent/{id}','DeleteAgent')->name('delete.agent');
         Route::post('/update/agent','UpdateAgent')->name('update.agent');
         Route::get('/changeStatus','ChangeStatus');
+        /// Admin User Route
+        Route::get('/all/admin/user','allAdminUser')->name('all.admin.user');
     });
     
     Route::get('/admin/blog/comment',[BlogController::class,'AdminBlogComment'])->name('admin.blog.comment');
