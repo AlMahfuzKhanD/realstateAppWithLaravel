@@ -149,7 +149,7 @@ class AdminController extends Controller
 
     public function EditAgent($id){
         $agent = User::findOrFail($id);
-        return view('backend.agent.edit_gent',compact('agent'));
+        return view('backend.agent.edit_agent',compact('agent'));
     } // end of AddAgent
 
     public function UpdateAgent(Request $request){
@@ -284,6 +284,59 @@ class AdminController extends Controller
             return redirect()->back()->with($notification);
             // something went wrong
         }
-    } // end of storeAdminUser
+    } // end of storeAdminUser 
+
+    public function editAdminUser($id){
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return view('backend.pages.admin.edit_admin',compact('user','roles'));
+    } // end of AddAgent 
+
+    public function updateAdminUser(Request $request,$id){
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+
+        try {
+
+            $user = User::findOrFail($id);
+            $user->username = $request->username;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->role ='admin';
+            $user->status ='active';
+            $user->save();
+
+            $user->roles()->detach();
+
+            if($request->roles){
+                $user->assignRole(intval($request->roles));
+            }
+
+            DB::commit();
+            $notification = array(
+                'message' => 'Admin User Updated Successfully!!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.admin.user')->with($notification);
+
+        } catch (\Exception $e) {
+
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of updateAdminUser 
 
 }
