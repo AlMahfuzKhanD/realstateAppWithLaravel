@@ -4,7 +4,7 @@
 
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <a href="{{ route('add.agent') }}" class="btn btn-inverse-info">Add Agent</a>
+            <a href="{{ route('add.admin.user') }}" class="btn btn-inverse-info">Add Admin</a>
         </ol>
     </nav>
 
@@ -12,7 +12,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
             <div class="card-body">
-                <h6 class="card-title">All Agent</h6>
+                <h6 class="card-title">All Admin</h6>
                 
                 <div class="table-responsive">
                 <table id="dataTableExample" class="table">

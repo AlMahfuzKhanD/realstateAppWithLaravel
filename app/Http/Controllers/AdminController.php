@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -232,5 +234,56 @@ class AdminController extends Controller
         $admins = User::where('role','admin')->get();
         return view('backend.pages.admin.all_admin',compact('admins'));
     } // end of allAdminUser
+
+    public function addAdminUser(){
+        $roles = Role::all();
+        return view('backend.pages.admin.add_admin',compact('roles'));
+    } // end of allAdminUser 
+
+    public function storeAdminUser(Request $request){
+
+        $notification = array(
+            'message' => 'Something Went Wrong!!',
+            'alert-type' => 'warning'
+        );
+
+        DB::beginTransaction();
+
+        try {
+
+            $user = new User();
+            $user->username = $request->username;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->password = Hash::make($request->password);
+            $user->role ='admin';
+            $user->status ='active';
+            $user->save();
+
+            if($request->roles){
+                $user->assignRole(intval($request->roles));
+            }
+
+            DB::commit();
+            $notification = array(
+                'message' => 'Admin User Created Successfully!!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.admin.user')->with($notification);
+
+        } catch (\Exception $e) {
+
+            $message = $e->getMessage();
+            DB::rollback();
+            $notification = array(
+                'message' => $message,
+                'alert-type' => 'danger'
+            );
+            return redirect()->back()->with($notification);
+            // something went wrong
+        }
+    } // end of storeAdminUser
 
 }

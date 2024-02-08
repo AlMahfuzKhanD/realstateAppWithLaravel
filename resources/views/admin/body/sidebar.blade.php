@@ -206,7 +206,7 @@
                 <a href="{{ route('all.admin.user') }}" class="nav-link">All Admin User</a>
                 </li>
                 <li class="nav-item">
-                <a href="{{ route('all.roles') }}" class="nav-link">Add Admin User</a>
+                <a href="{{ route('add.admin.user') }}" class="nav-link">Add Admin User</a>
                 </li>
                 
                 

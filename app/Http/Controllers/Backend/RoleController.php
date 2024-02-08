@@ -332,7 +332,6 @@ class RoleController extends Controller
             return redirect()->route('all.assigned.permission')->with($notification);
 
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
             $message = $e->getMessage();
             $notification = array(
