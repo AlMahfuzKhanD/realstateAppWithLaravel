@@ -17,7 +17,7 @@ License: For each use you must have a valid license purchased only from above li
 	<meta name="author" content="NobleUI">
 	<meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
-	<title>404 Page</title>
+	<title>403 Page</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,9 +51,9 @@ License: For each use you must have a valid license purchased only from above li
 				<div class="row w-100 mx-0 auth-page">
 					<div class="col-md-8 col-xl-6 mx-auto d-flex flex-column align-items-center">
 						<img src="{{ asset('backend/assets/images/others/404.svg') }}" class="img-fluid mb-2" alt="404">
-						<h1 class="fw-bolder mb-22 mt-2 tx-80 text-muted">404</h1>
-						<h4 class="mb-2">Page Not Found</h4>
-						<h6 class="text-muted mb-3 text-center">Oopps!! The page you were looking for doesn't exist.</h6>
+						<h1 class="fw-bolder mb-22 mt-2 tx-80 text-muted">403</h1>
+						<h4 class="mb-2">USER DOES NOT HAVE THE RIGHT PERMISSIONS OR ROLES </h4>
+						<h6 class="text-muted mb-3 text-center">Oopps!! You don't have the right accessibility!!.</h6>
 						<a href="{{ url('/') }}">Back to home</a>
 					</div>
 				</div>
