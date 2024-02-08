@@ -177,6 +177,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/store/admin/user','storeAdminUser')->name('store.admin.user');
         Route::get('/edit/admin/user/{id}','editAdminUser')->name('edit.admin.user');
         Route::post('/update/admin/user/{id}','updateAdminUser')->name('update.admin.user');
+        Route::get('/delete/admin/user/{id}','deleteAdminUser')->name('delete.admin.user');
     });
     
     Route::get('/admin/blog/comment',[BlogController::class,'AdminBlogComment'])->name('admin.blog.comment');

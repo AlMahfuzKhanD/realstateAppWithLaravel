@@ -42,7 +42,7 @@
                             </td>
                             <td>
                                 <a href="{{ route('edit.admin.user',$item->id) }}" class="btn btn-inverse-warning"> Edit</a>
-                                <a href="{{ route('delete.agent',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
+                                <a href="{{ route('delete.admin.user',$item->id) }}"  class="btn btn-inverse-danger" id="delete">Delete</a>
                             </td>
     
                         </tr>

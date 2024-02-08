@@ -339,4 +339,17 @@ class AdminController extends Controller
         }
     } // end of updateAdminUser 
 
+    public function deleteAdminUser($id){
+        $user = User::findOrFail($id);
+        if(!is_null($user)){
+            $user->delete();
+        }
+
+        $notification = array(
+            'message' => 'Admin User Deleted Successfully!!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
 }
