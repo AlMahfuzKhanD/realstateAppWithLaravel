@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //Admin Group Middleware
-Route::middleware(['auth','role:admin'])->group(function(){
+Route::middleware(['auth','roles:admin'])->group(function(){
     Route::get('/admin/dashboard',[AdminController::class,'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout',[AdminController::class,'AdminLogout'])->name('admin.logout');
     Route::get('/admin/profile',[AdminController::class,'AdminProfile'])->name('admin.profile');
@@ -72,7 +72,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
 Route::get('/admin/login',[AdminController::class,'AdminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
 
 //Agent Group Middleware
-Route::middleware(['auth','role:agent'])->group(function(){
+Route::middleware(['auth','roles:agent'])->group(function(){
     Route::get('/agent/dashboard',[AgentController::class,'AgentDashboard'])->name('agent.dashboard');
     Route::get('/agent/logout',[AgentController::class,'AgentLogout'])->name('agent.logout');
     Route::get('/agent/profile',[AgentController::class,'AgentProfile'])->name('agent.profile');
@@ -84,7 +84,7 @@ Route::middleware(['auth','role:agent'])->group(function(){
 Route::get('/agent/login',[AgentController::class,'AgentLogin'])->name('agent.login')->middleware(RedirectIfAuthenticated::class);
 Route::post('/agent/register',[AgentController::class,'AgentRegister'])->name('agent.register');
 
-Route::middleware(['auth','role:admin'])->group(function(){
+Route::middleware(['auth','roles:admin'])->group(function(){
     // Property Type All Route
     Route::controller(PropertyTypeController::class)->group(function(){
         Route::get('/all/type','AllType')->name('all.type');
@@ -211,7 +211,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/role','updateRole')->name('update.role');
         Route::get('/assign/permission','assignPermission')->name('assign.permission');
         Route::post('/store/assign/permission','storeAssignPermission')->name('store.assign.permission');
-        Route::get('/all/assigned/permission','allAssignedPermission')->name('all.assigned.permission');
+        Route::get('/all/assigned/permission','allAssignedPermission')->name('all.assigned.permission')->middleware('permission:role.menu');
         Route::get('/admin/edit/role/{id}','adminEditRole')->name('admin.edit.role');
         Route::post('/admin/update/role/permission/{id}','updateRolePermission')->name('update.role.permission');
         Route::get('/admin/delete/role/{id}','deleteRolePermission')->name('admin.delete.role');
@@ -222,7 +222,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
 
 
 //Agent Group Middleware
-Route::middleware(['auth','role:agent'])->group(function(){
+Route::middleware(['auth','roles:agent'])->group(function(){
 
     // Agent all property
     Route::controller(AgentPropertyController::class)->group(function(){ 
