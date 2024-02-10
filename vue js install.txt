@@ -1,2 +1,10 @@
-npm install vue@next vue-loader@next
 npm install
+npm install vue@latest vue-loader@next
+npm i @vitejs/plugin-vue --legacy-peer-deps
+
+If any issue happen try these steps:
+Delete: Node node_modules
+Delete: Package-lock.json
+Clear Cache: npm cache clean --force    
+
+Reference: https://medium.com/@DevMahmoudAdel/how-to-install-vue-3-in-laravel-10-with-vite-5c7749afd29c
