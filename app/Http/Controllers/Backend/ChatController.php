@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\ChatMessage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
@@ -39,4 +40,40 @@ class ChatController extends Controller
             // something went wrong
         }
     }
+
+    public function getAllUser(){
+         $chats = ChatMessage::orderBy('id','desc')
+         ->where('sender_id',auth()->id())
+         ->orWhere('receiver_id',auth()->id())
+         ->get();
+
+         $users = $chats->flatMap(function($chat){
+            if($chat->sender_id === auth()->id()){
+                return [$chat->sender, $chat->receiver];
+            }
+            return [$chat->receiver, $chat->sender];
+         })->unique();
+         return $users;
+    } // end of method
+
+    public function getAllUserMessage($userId){
+        $user = User::find($userId);
+
+        if($user){
+            $message = ChatMessage::where(function($q) use($userId){
+                $q->where('sender_id',auth()->id());
+                $q->where('receiver_id',$userId);
+            })->orWhere(function($q) use($userId){
+                $q->where('sender_id',$userId);
+                $q->where('receiver_id',auth()->id());
+            })->with('user')->get();
+
+            return response()->json([
+                'user' => $user,
+                'message' =>$message
+            ]);
+        }else{
+            abort(404);
+        }
+    } // end of method
 }

@@ -16,6 +16,9 @@
         <li>
             <a href="{{ route('user.wishlist') }}"><i class="fa fa-indent" aria-hidden="true"></i> Wishlist </a>
         </li>
+        <li>
+            <a href="{{ route('live.chat') }}"><i class="fa fa-indent" aria-hidden="true"></i> Live Chat </a>
+        </li>
 
         <li>
             <a href="{{ route('change.user.password') }}"><i class="fa fa-key" aria-hidden="true"></i> Security </a>

@@ -129,4 +129,10 @@ class UserController extends Controller
         return view('frontend.message.schedule_request',compact('userData','schedule_request'));
 
     } // end UpdateUserPassword
+
+    public function liveChat(){
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('frontend.dashboard.live_chat',compact('profileData'));
+    } // end of method
 }

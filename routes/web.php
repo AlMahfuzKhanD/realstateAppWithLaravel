@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
    Route::get('/user/change_password',[UserController::class,'ChangeUserPassword'])->name('change.user.password');
    Route::post('/user/update_password',[UserController::class,'UpdateUserPassword'])->name('update.user.password');
    Route::get('/user/schedule_request',[UserController::class,'UserScheduleRequest'])->name('user.schedule.request');
+   Route::get('/live/chat',[UserController::class,'liveChat'])->name('live.chat');
 
     Route::controller(WishlistController::class)->group(function(){
         Route::get('/user/wishlist','UserWishList')->name('user.wishlist');
@@ -282,6 +283,8 @@ Route::post('/store/schedule',[IndexController::class,'StoreSchedule'])->name('s
 
 // Live Chat
 Route::post('/send-message',[ChatController::class,'sendMessage']);
+Route::get('/user-all',[ChatController::class,'getAllUser']);
+Route::get('/user-message/{id}',[ChatController::class,'getAllUserMessage']);
 
 
 
