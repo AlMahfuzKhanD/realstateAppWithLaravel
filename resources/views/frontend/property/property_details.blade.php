@@ -238,7 +238,10 @@
                                             </li>
                                             <li><i class="fas fa-phone"></i><a href="tel:03030571965">{{ $property->user->phone??0 }}</a></li>
                                         </ul>
-                                        <div class="btn-box"><a href="agents-details.html">View Listing</a></div>
+
+                                        <div id="app">
+                                            <send-message></send-message>
+                                        </div>
                                     </div>
                                     @endif
                                     

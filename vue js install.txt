@@ -1,0 +1,2 @@
+npm install vue@next vue-loader@next
+npm install

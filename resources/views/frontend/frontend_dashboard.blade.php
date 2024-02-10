@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
         <title>@yield('title')</title>
+        @vite(['resources/js/app.js'])
         <script src="{{ asset('backend/assets/js/jquery-3.7.1.min.js') }}"></script>
         <!-- Fav Icon -->
         <link rel="icon" href="{{ asset('frontend/assets/images/favicon.ico') }}" type="image/x-icon" />
