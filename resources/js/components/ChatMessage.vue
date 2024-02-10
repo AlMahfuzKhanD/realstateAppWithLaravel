@@ -45,7 +45,7 @@
                     
                   </div>
   
-                  <p>{{ msg.msg }}</p>
+                  <p>{{ msg.message }}</p>
                 </div>
               </li>
   
@@ -64,7 +64,7 @@
                     <strong class="right primary-font">{{ msg.user.name }} </strong> 
                      
                   </div>
-                  <p>{{ msg.msg }}</p>
+                  <p>{{ msg.message }}</p>
                 </div>
               </li>
           
@@ -79,11 +79,12 @@
               <input
                 id="btn-input"
                 type="text"
+                v-model="msg"
                 class="form-control input-sm"
                 placeholder="Type your message here..."
               />
               <span class="input-group-btn">
-                <button class="btn btn-primary">Send</button>
+                <button class="btn btn-primary" @click.prevent="sendMsg()">Send</button>
               </span>
             </div>
           </div>
@@ -99,6 +100,7 @@
             users:{},
             allMessage:{},
             selectedUser:'',
+            msg:'',
         }
      },
      created(){
@@ -119,9 +121,20 @@
             .then((res) => {
                 this.allMessage = res.data;
                 this.selectedUser = user_id;
+                console.log(res.data)
             })
             .catch((err) => {
 
+            })
+        },
+        sendMsg(){
+            axios.post('/send-message',{receiver_id:this.selectedUser,msg:this.msg})
+            .then((res)=>{
+                this.msg = "";
+                this.userMessage(this.selectedUser);
+            })
+            .catch((err) => {
+                this.errors = err.response.data.errors;
             })
         }
      },
