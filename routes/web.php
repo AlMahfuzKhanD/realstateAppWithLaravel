@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\ChatController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -16,7 +18,6 @@ use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\PropertyTypeController;
-use App\Http\Controllers\Backend\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -277,4 +278,10 @@ Route::get('/blog/category/list/{id}',[BlogController::class,'BlogCategoryList']
 Route::get('/blog',[BlogController::class,'BlogList'])->name('blog.list');
 Route::post('/store/comment',[BlogController::class,'StoreComment'])->name('store.comment');
 Route::post('/store/schedule',[IndexController::class,'StoreSchedule'])->name('store.schedule');
+
+
+// Live Chat
+Route::post('/send-message',[ChatController::class,'sendMessage']);
+
+
 

@@ -238,10 +238,14 @@
                                             </li>
                                             <li><i class="fas fa-phone"></i><a href="tel:03030571965">{{ $property->user->phone??0 }}</a></li>
                                         </ul>
-
+                                        @auth
                                         <div id="app">
-                                            <send-message></send-message>
+                                            <send-message :receiverid="{{ $property->agent_id }}" receivername="{{ $property->user->name }}"></send-message>
                                         </div>
+                                        @else
+                                        <span class="text-danger"> To start live chat, Please login first!!</span>
+                                        @endauth
+                                        
                                     </div>
                                     @endif
                                     

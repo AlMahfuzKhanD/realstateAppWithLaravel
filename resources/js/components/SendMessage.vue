@@ -10,20 +10,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fs-5" id="exampleModalLabel">Chat With</h5>
+        <h5 class="modal-title fs-5" id="exampleModalLabel">Chat With {{ receivername }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="">
+      <form @submit.prevent="sendMsg()">
       <div class="modal-body">
         <div class="form-group">
-            <textarea class="form-control" name="" id="" cols="30" rows="3" placeholder="Type Your Message">
+            <textarea class="form-control" v-model="form.msg" id="" cols="30" rows="3" placeholder="Type Your Message">
 
             </textarea>
+            <span class="text-success" v-if="successMessage.message">{{ successMessage.message }}</span>
+            <span class="text-danger" v-if="errors.msg">{{ errors.msg[0] }}</span>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send Message</button>
+        <button type="submit" class="btn btn-primary">Send Message</button>
       </div>
     </form>
     </div>
@@ -31,3 +33,35 @@
 </div>
     </div>
 </template>
+
+<script>
+export default{
+    props:[
+        'receiverid',
+        'receivername'
+    ],
+    data(){
+        return{
+            form:{
+                msg:"",
+                receiver_id:this.receiverid,
+            },
+            errors:{},
+            successMessage:{},
+        }
+    },
+    methods: {
+        sendMsg(){
+            axios.post('/send-message',this.form)
+            .then((res)=>{
+                this.form.msg = "";
+                this.successMessage = res.data;
+                console.log(res.data)
+            })
+            .catch((err) => {
+                this.errors = err.response.data.errors;
+            })
+        }
+    }
+}
+</script>
