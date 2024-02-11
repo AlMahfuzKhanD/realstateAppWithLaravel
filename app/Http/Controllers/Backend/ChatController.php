@@ -76,4 +76,8 @@ class ChatController extends Controller
             abort(404);
         }
     } // end of method
+
+    public function agentLiveChat(){
+        return view('agent.message.live_chat');
+    }
 }

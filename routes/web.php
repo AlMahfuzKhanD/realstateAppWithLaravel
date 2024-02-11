@@ -258,6 +258,7 @@ Route::middleware(['auth','roles:agent'])->group(function(){
         Route::get('/package/invoice/{id}','PackageInvoice')->name('agent.package.invoice');
 
     });
+    Route::get('/agent/live/chat',[ChatController::class,'agentLiveChat'])->name('agent.live.chat');
 });
 
 // frontend property details route
