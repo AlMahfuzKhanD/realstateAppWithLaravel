@@ -134,5 +134,6 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $profileData = User::find($id);
         return view('frontend.dashboard.live_chat',compact('profileData'));
+        
     } // end of method
 }
