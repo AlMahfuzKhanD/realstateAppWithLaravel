@@ -27,7 +27,7 @@
                         U
                     </span>
                     <span data-text-preloader="J" class="letters-loading">
-                        J
+                        Z
                     </span>
                 </div>
             </div>  
