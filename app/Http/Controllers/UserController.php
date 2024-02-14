@@ -59,7 +59,7 @@ class UserController extends Controller
             $file = $request->file('photo');
             @unlink(public_path('upload/user_images/'.$profileData['photo']));
             $fileName = date('Ymdhi').$file->getClientOriginalName();
-            $file->move(public_path('upload/admin_images'),$fileName);
+            $file->move(public_path('upload/user_images'),$fileName);
             $profileData['photo'] = $fileName;
         }
         $profileData->save();

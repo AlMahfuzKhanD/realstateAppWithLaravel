@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="formFile" class="form-label">Default file input example</label>
-                                        <input class="form-control" type="file" id="formFile" />
+                                        <input class="form-control" type="file" name="photo" id="formFile" />
                                     </div>
                                     <div class="form-group">
                                         <label for="showSelectedImage" class="form-label"></label>
