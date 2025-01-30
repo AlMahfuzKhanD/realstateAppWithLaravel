@@ -28,7 +28,7 @@ class ChatController extends Controller
                 'message' => $request->msg,
                 'created_at' => Carbon::now()
             ]);
-            $message = 'Comment Replied successfully!!';
+            $message = 'Message sent successfully!!';
             DB::commit();
             return response()->json(['message' => $message]);
          
